@@ -5,70 +5,103 @@
 	justify-content: center;
 	width: 100%;
 	height: 100%;
-	border: 1px solid #323232;
-	border-radius: 10px;
-	background-color: #191919;
+	border: 1px solid rgba(255, 26, 60, 0.28);
+	border-radius: 12px;
+	background: rgba(10, 13, 22, 0.92);
+	backdrop-filter: blur(24px);
+	-webkit-backdrop-filter: blur(24px);
+	box-shadow: 0 12px 40px rgba(0, 0, 0, 0.75), 0 0 20px rgba(255, 26, 60, 0.12);
+	overflow: hidden;
+}
+
+.isMaximized {
+	border-radius: 0 !important;
+	border: none !important;
 }
 
 .animatedWindow {
-	transition: all 0.2s ease-in-out;
+	transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .main {
+	display: flex;
+	flex-direction: column;
 	width: 100%;
 	height: 100%;
+	overflow: hidden;
 }
 
-.main nav {
-	border-radius: 10px 10px 0 0;
-	background-color: #202020;
+.windowNav {
+	border-radius: 12px 12px 0 0;
+	background: linear-gradient(90deg, rgba(16, 20, 36, 0.95) 0%, rgba(10, 13, 22, 0.95) 100%);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+	user-select: none;
 }
 
 .top {
 	display: flex;
 	justify-content: space-between;
-	height: 2rem;
-	padding-left: 5px;
-}
-
-.top .icon {
-	display: flex;
 	align-items: center;
-	justify-content: center;
-	height: 100%;
-	padding: 0 10px;
-	cursor: pointer;
-}
-
-.top .icon:hover {
-	background-color: #2e2e2e;
-}
-
-.top .iconClose {
-	display: flex;
-	align-items: center;
-	height: 100%;
-	padding-right: 15px;
-	padding-left: 14px;
-	border-radius: 0 10px 0 0;
-	cursor: pointer;
-}
-
-.top .iconClose:hover {
-	background-color: red;
+	height: 2.3rem;
+	padding-left: 12px;
 }
 
 .topContainer {
 	display: flex;
-	gap: 5px;
+	gap: 8px;
+	align-items: center;
+	font-size: 0.85rem;
+	font-weight: 500;
+	color: #f0f3fa;
+}
+
+.topTitleText {
+	color: #e4e9f5;
+	font-size: 0.82rem;
+	letter-spacing: 0.3px;
+}
+
+.titleWithIcon {
+	display: flex;
+	gap: 8px;
 	align-items: center;
 }
 
 .iconContainer {
 	display: flex;
-	gap: 5px;
+	height: 100%;
 	align-items: center;
-	color: #fff;
+	color: #9aa4bf;
+}
+
+.icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 44px;
+	cursor: pointer;
+	transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.icon:hover {
+	background-color: rgba(255, 255, 255, 0.1);
+	color: #00f0ff;
+}
+
+.iconClose {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 46px;
+	cursor: pointer;
+	transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.iconClose:hover {
+	background-color: #ff1a3c;
+	color: #ffffff;
 }
 
 .terminalContainer {
@@ -76,31 +109,55 @@
 	gap: 10px;
 	align-items: center;
 	justify-content: space-between;
-	margin-top: 3px;
+	height: 100%;
 	color: #fff;
 }
 
-.terminalContainer svg:hover {
-	border-radius: 5px;
-	background-color: #2e2e2e;
-}
-
-.terminalContainer div:first-child {
+.terminalContainer > div:first-child {
 	display: flex;
-	gap: 5px;
+	gap: 8px;
 	align-items: center;
 	height: 100%;
-	padding-right: 10px;
-	padding-left: 10px;
-	border-radius: 5px 5px 0 0;
-	background-color: rgb(19 19 19);
+	padding: 0 12px;
+	border-radius: 6px 6px 0 0;
+	background-color: rgba(25, 30, 50, 0.6);
+	border: 1px solid rgba(255, 255, 255, 0.05);
+	border-bottom: none;
+}
+
+.closeTabIcon {
+	margin-left: 8px;
+	cursor: pointer;
+	border-radius: 3px;
+	padding: 2px;
+	font-size: 1rem;
+}
+
+.closeTabIcon:hover {
+	background-color: #ff1a3c;
 }
 
 .manageButtons {
 	display: flex;
-	gap: 5px;
+	gap: 6px;
 	align-items: center;
-	height: 100%;
-	border-radius: 0 0 0 10px;
-	font-size: 1.2rem;
+	font-size: 1.1rem;
+	color: #9aa4bf;
+}
+
+.manageButtons svg {
+	cursor: pointer;
+	border-radius: 4px;
+	padding: 2px;
+}
+
+.manageButtons svg:hover {
+	background-color: rgba(255, 255, 255, 0.1);
+	color: #00f0ff;
+}
+
+.windowBody {
+	flex: 1;
+	height: calc(100% - 2.3rem);
+	overflow: auto;
 }

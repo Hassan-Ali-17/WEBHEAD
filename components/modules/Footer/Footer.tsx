@@ -1,47 +1,64 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AiOutlineWifi } from 'react-icons/ai';
 import { FiVolume2 } from 'react-icons/fi';
+import { Context } from '../../../context/ContextProvider';
+import { fetchWeatherForCoords, WeatherData } from '../../../services/weatherService';
 import type { ErrorType } from '../../../types';
 import Error from '../../windows/Error/Error';
+import CalendarFlyout from './CalendarFlyout';
 import styles from './Footer.module.css';
+import LikeCounter from './LikeCounter';
 import WindowsMenu from './WindowsMenu';
 
 function Footer() {
 	const [winMenu, setWinMenu] = useState(false);
+	const [calendarOpen, setCalendarOpen] = useState(false);
 	const [errors, setError] = useState([] as ErrorType[]);
+	const [weather, setWeather] = useState<WeatherData | null>(null);
 
-	const handleError = (err: string) => {
-		setError([...errors, { error: err, index: errors.length }]);
-	};
+	const { settingsState } = useContext(Context);
+	const [settings] = settingsState;
 
 	const handleWinMenu = () => {
 		setWinMenu(!winMenu);
 	};
 
-	const [hourStr, setHourStr] = useState('00:00 PM');
-	const [dateStr, setDateStr] = useState('1/1/1970');
+	const [hourStr, setHourStr] = useState('12:00 PM');
+	const [dateStr, setDateStr] = useState('1/1/2026');
 
+	// Update system tray clock based on clock format setting
 	useEffect(() => {
-		const interval = setInterval(() => {
+		const updateTime = () => {
+			const now = new Date();
+			const is12Hour = settings.clockFormat === '12h';
 			setHourStr(
-				new Date().toLocaleTimeString(navigator.language, {
+				now.toLocaleTimeString(navigator.language, {
 					hour: '2-digit',
 					minute: '2-digit',
+					hour12: is12Hour,
 				}),
 			);
-			setDateStr(new Date().toLocaleDateString(navigator.language));
-		}, 1000);
-		return () => {
-			clearInterval(interval);
+			setDateStr(now.toLocaleDateString(navigator.language));
 		};
+
+		updateTime();
+		const interval = setInterval(updateTime, 1000);
+		return () => clearInterval(interval);
+	}, [settings.clockFormat]);
+
+	// Fetch quick weather for Brooklyn / default
+	useEffect(() => {
+		fetchWeatherForCoords(40.6782, -73.9442, 'Brooklyn').then((res) => {
+			if (res.data) setWeather(res.data);
+		});
 	}, []);
 
 	return (
 		<>
 			{errors &&
-				errors.map((err, index) => {
+				errors.map((err) => {
 					return (
 						<Error
 							key={err.index}
@@ -52,117 +69,158 @@ function Footer() {
 						/>
 					);
 				})}
+
 			<div className={styles.container}>
+				{/* Left / Center Spider Taskbar Icons */}
 				<section className={styles.iconContainer}>
+					{/* Spider Start Menu Button */}
 					<div
-						className={`${styles.icon} windowsIcon`}
+						className={`${styles.icon} ${styles.spiderStartBtn} windowsIcon`}
 						onClick={() => handleWinMenu()}
+						title="Spider-Verse OS Menu"
 					>
 						<Image
-							src={'/icons/windows/windows.png'}
-							width={25}
-							height={25}
-							alt="logo"
-							className="windowsIcon"
+							src={'/icons/spider/spider.png'}
+							width={28}
+							height={28}
+							alt="Webhead Start"
+							className={`${styles.spiderLogo} windowsIcon`}
 						/>
 					</div>
+
 					<Link
 						href="/explorer/quick-access"
 						className={styles.icon}
 						draggable={false}
+						title="File Explorer"
 					>
 						<Image
 							src={'/icons/explorer/explorer.png'}
-							width={25}
-							height={25}
-							alt="logo"
+							width={26}
+							height={26}
+							alt="File Explorer"
 						/>
 					</Link>
-					<div
+
+					<Link
+						href="/projects"
 						className={styles.icon}
-						onClick={() => handleError('Firefox')}
+						draggable={false}
+						title="Projects Showcase"
 					>
 						<Image
-							src={'/icons/firefox/firefox.png'}
-							width={25}
-							height={25}
-							alt="logo"
+							src={'/icons/folder/folder.png'}
+							width={26}
+							height={26}
+							alt="Projects"
 						/>
-					</div>
-					<div
+					</Link>
+
+					<Link
+						href="/chat"
 						className={styles.icon}
-						onClick={() => handleError('Spotify')}
-					>
-						<Image
-							src={'/icons/spotify/spotify.png'}
-							width={25}
-							height={25}
-							alt="logo"
-						/>
-					</div>
-					<div
-						className={styles.icon}
-						onClick={() => handleError('Steam')}
-					>
-						<Image
-							src={'/icons/steam/steam.png'}
-							width={25}
-							height={25}
-							alt="logo"
-						/>
-					</div>
-					<div
-						className={styles.icon}
-						onClick={() => handleError('Discord')}
+						draggable={false}
+						title="Real-Time Public Chat"
 					>
 						<Image
 							src={'/icons/discord/discord.png'}
-							width={25}
-							height={25}
-							alt="logo"
+							width={26}
+							height={26}
+							alt="Live Chat"
 						/>
-					</div>
-					<div
+					</Link>
+
+					<Link
+						href="/spotify"
 						className={styles.icon}
-						onClick={() =>
-							handleError('Visual Studio Code - Insiders')
-						}
+						draggable={false}
+						title="Spotify Music Room"
 					>
 						<Image
-							src={'/icons/vscode/vscode.png'}
-							width={25}
-							height={25}
-							alt="logo"
+							src={'/icons/spotify/spotify.png'}
+							width={26}
+							height={26}
+							alt="Spotify Music"
 						/>
-					</div>
+					</Link>
+
+					<Link
+						href="/weather"
+						className={styles.icon}
+						draggable={false}
+						title="Weather Station"
+					>
+						<Image
+							src={'/icons/pictures/pictures.png'}
+							width={26}
+							height={26}
+							alt="Weather Station"
+						/>
+					</Link>
+
 					<Link
 						href="/terminal"
 						className={styles.icon}
 						draggable={false}
+						title="Spider Terminal"
 					>
 						<Image
 							src={'/icons/terminal/terminal.png'}
-							width={25}
-							height={25}
-							alt="logo"
+							width={26}
+							height={26}
+							alt="Terminal"
+						/>
+					</Link>
+
+					<Link
+						href="/settings"
+						className={styles.icon}
+						draggable={false}
+						title="Spider-Verse Settings"
+					>
+						<Image
+							src={'/icons/shortcut/shortcut.png'}
+							width={26}
+							height={26}
+							alt="Settings"
 						/>
 					</Link>
 				</section>
+
+				{/* Right System Tray */}
 				<section className={styles.toolbarContainer}>
-					<div className={styles.language}>
-						<p>ENG</p>
-					</div>
-					<div className={styles.icon}>
+					{/* Interactive Like Counter */}
+					<LikeCounter />
+
+					{/* Weather Snapshot */}
+					{weather && (
+						<Link href="/weather" className={styles.weatherTrayItem} title={`${weather.condition} (${weather.city})`}>
+							<span className={styles.weatherIcon}>
+								{weather.condition.includes('Sun') || weather.condition.includes('Clear') ? '☀️' : '🌧️'}
+							</span>
+							<span className={styles.weatherTemp}>{weather.temperature}°C</span>
+						</Link>
+					)}
+
+					<div className={styles.systemStatusIcons}>
 						<AiOutlineWifi />
 						<FiVolume2 />
 					</div>
-					<div className={styles.dateIcons}>
-						<p>{hourStr}</p>
-						<p>{dateStr}</p>
+
+					{/* Interactive Live Clock & Calendar Trigger */}
+					<div
+						className={`${styles.dateIcons} dateIconsTarget`}
+						onClick={() => setCalendarOpen(!calendarOpen)}
+						title="Click to view interactive Spider-Verse Calendar"
+					>
+						<p className={styles.hourText}>{hourStr}</p>
+						<p className={styles.dateText}>{dateStr}</p>
 					</div>
 				</section>
 			</div>
+
 			<WindowsMenu winMenu={winMenu} handleWinMenu={handleWinMenu} />
+			<CalendarFlyout isOpen={calendarOpen} onClose={() => setCalendarOpen(false)} />
 		</>
 	);
 }

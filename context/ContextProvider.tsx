@@ -1,4 +1,5 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
+import type { DesktopSettings } from '../types';
 
 type LastPos = {
 	x: number;
@@ -35,52 +36,83 @@ type ContextType = {
 		(newPriority: WindowPriority) => void,
 	];
 	lastPosState: [LastPos, (newLastPos: LastPos) => void];
+	settingsState: [DesktopSettings, (newSettings: DesktopSettings) => void];
+	activeAppMobileState: [string | null, (app: string | null) => void];
 };
 
-// React-selecto uses z-index 100 so these values must be higher than
-const initialPriority = {
+const initialPriority: WindowPriority = {
 	fileExplorer: 101,
+	chat: 102,
+	spotify: 103,
+	discord: 104,
+	weather: 105,
+	settings: 106,
+	about: 107,
+	projects: 108,
+	resume: 109,
+	contact: 110,
+	terminal: 111,
+	notepad: 112,
+	mediaPlayer: 113,
 };
 
-const initialMaximized = {
+const initialMaximized: Maximized = {
 	fileExplorer: null,
 	mediaPlayer: null,
 	notepad: null,
 	terminal: null,
+	chat: null,
+	spotify: null,
+	discord: null,
+	weather: null,
+	settings: null,
+	about: null,
+	projects: null,
+	resume: null,
+	contact: null,
 };
 
-const initialPosition = {
-	fileExplorer: {
-		x: 0,
-		y: 0,
-		width: 880,
-		height: 550,
-	},
-	mediaPlayer: {
-		x: 0,
-		y: 0,
-		width: 880,
-		height: 550,
-	},
-	notepad: {
-		x: 0,
-		y: 0,
-		width: 880,
-		height: 550,
-	},
-	terminal: {
-		x: 0,
-		y: 0,
-		width: 880,
-		height: 550,
-	},
-};
+const createDefaultWindowPos = () => ({
+	x: 0,
+	y: 0,
+	width: 880,
+	height: 560,
+});
 
-const initialLastPos = {
+const defaultWindowKeys = [
+	'fileExplorer',
+	'mediaPlayer',
+	'notepad',
+	'terminal',
+	'chat',
+	'spotify',
+	'discord',
+	'weather',
+	'settings',
+	'about',
+	'projects',
+	'resume',
+	'contact',
+];
+
+const initialPosition: PositionState = defaultWindowKeys.reduce((acc, key) => {
+	acc[key] = createDefaultWindowPos();
+	return acc;
+}, {} as PositionState);
+
+const initialLastPos: LastPos = {
 	x: 0,
 	y: 0,
 	width: 0,
 	height: 0,
+};
+
+const defaultSettings: DesktopSettings = {
+	wallpaper: '/images/wallpaper-spiderverse-city.jpg',
+	clockFormat: '12h',
+	themeAccent: 'red',
+	reducedMotion: false,
+	soundEnabled: true,
 };
 
 const initialState: ContextType = {
@@ -91,6 +123,8 @@ const initialState: ContextType = {
 	positionState: [initialPosition, () => {}],
 	windowPriorityState: [initialPriority, () => {}],
 	lastPosState: [initialLastPos, () => {}],
+	settingsState: [defaultSettings, () => {}],
+	activeAppMobileState: [null, () => {}],
 };
 
 export const Context = createContext<ContextType>(initialState);
@@ -104,15 +138,55 @@ const ContextProvider = ({ children }: { children: React.ReactNode }) => {
 	const [windowPriority, setWindowPriority] =
 		useState<WindowPriority>(initialPriority);
 	const [lastPos, setLastPos] = useState<LastPos>(initialLastPos);
+	const [settings, setSettings] = useState<DesktopSettings>(defaultSettings);
+	const [activeAppMobile, setActiveAppMobile] = useState<string | null>(null);
+
+	// Load persisted settings from localStorage if available
+	useEffect(() => {
+		try {
+			const saved = localStorage.getItem('webhead_settings');
+			if (saved) {
+				const parsed = JSON.parse(saved);
+				setSettings((prev) => ({ ...prev, ...parsed }));
+			}
+		} catch {
+			// ignore local storage errors
+		}
+	}, []);
+
+	const handleUpdateSettings = (newSettings: DesktopSettings) => {
+		setSettings(newSettings);
+		try {
+			localStorage.setItem('webhead_settings', JSON.stringify(newSettings));
+		} catch {
+			// ignore storage errors
+		}
+	};
+
+	// Ensure any accessed window has a position entry
+	const safeSetPosition = (newPosition: PositionState) => {
+		setPosition(newPosition);
+	};
+
+	const safePosition = new Proxy(position, {
+		get(target, prop: string) {
+			if (!(prop in target)) {
+				target[prop] = createDefaultWindowPos();
+			}
+			return target[prop];
+		},
+	});
 
 	const appContext: ContextType = {
 		maximizedState: [maximized, setMaximized],
 		explorerHistoryState: [explorerHistory, setExplorerHistory],
 		indexState: [index, setIndex],
 		wasManualState: [wasManual, setWasManual],
-		positionState: [position, setPosition],
+		positionState: [safePosition, safeSetPosition],
 		windowPriorityState: [windowPriority, setWindowPriority],
 		lastPosState: [lastPos, setLastPos],
+		settingsState: [settings, handleUpdateSettings],
+		activeAppMobileState: [activeAppMobile, setActiveAppMobile],
 	};
 
 	return <Context.Provider value={appContext}>{children}</Context.Provider>;

@@ -14,51 +14,33 @@ import { handleWindowPriority } from '../WindowPriority/WindowPriority';
 import styles from './DraggableWindow.module.css';
 
 const handleStyles = {
-	bottom: {
-		cursor: 'ns-resize',
-	},
-	bottomLeft: {
-		cursor: 'nesw-resize',
-	},
-	bottomRight: {
-		cursor: 'nwse-resize',
-	},
-	left: {
-		cursor: 'ew-resize',
-	},
-	right: {
-		cursor: 'ew-resize',
-	},
-	top: {
-		cursor: 'ns-resize',
-	},
-	topLeft: {
-		cursor: 'nwse-resize',
-	},
-	topRight: {
-		cursor: 'nesw-resize',
-	},
+	bottom: { cursor: 'ns-resize' },
+	bottomLeft: { cursor: 'nesw-resize' },
+	bottomRight: { cursor: 'nwse-resize' },
+	left: { cursor: 'ew-resize' },
+	right: { cursor: 'ew-resize' },
+	top: { cursor: 'ns-resize' },
+	topLeft: { cursor: 'nwse-resize' },
+	topRight: { cursor: 'nesw-resize' },
 };
 
 const variants = {
-	// .container carries border-radius: 10px; the maximized window squares off.
-	// Both variants must name borderRadius or Motion cannot animate back.
 	maximized: {
 		borderRadius: '0px',
 		scale: 1,
 		opacity: 1,
 	},
 	minimized: {
-		borderRadius: '10px',
+		borderRadius: '12px',
 		scale: 1,
 		opacity: 1,
 	},
-	// Opening straight into an already-open file explorer should not re-zoom.
 	enterFromHistory: {
 		scale: 1,
 	},
 	enterFresh: {
-		scale: 0,
+		scale: 0.95,
+		opacity: 0,
 	},
 };
 
@@ -83,6 +65,7 @@ function DraggableWindow({
 	const [isResizing, setIsResizing] = useState(false);
 	const [loading, setLoading] = useState(true);
 	const [isClosing, setIsClosing] = useState(false);
+	const [isMobile, setIsMobile] = useState(false);
 
 	const DraggableWindowContext = useContext(Context);
 
@@ -132,7 +115,7 @@ function DraggableWindow({
 
 		setTimeout(() => {
 			router.push('/');
-		}, 500);
+		}, 300);
 	};
 
 	const handleClick = (e: MouseEvent<HTMLDivElement>, window: string) => {
@@ -140,57 +123,48 @@ function DraggableWindow({
 	};
 
 	useEffect(() => {
-		(async () => {
-			const getCenter = async () => {
-				let width = window.innerWidth;
-				let height = window.innerHeight;
+		const checkMobile = () => {
+			const mobile = window.innerWidth < 880;
+			setIsMobile(mobile);
+			return mobile;
+		};
 
-				let x;
-				let y;
-				if (width !== position[windowName].width) {
-					x = width / 2 - position[windowName].width / 2;
-				} else {
-					x = width / 2 - 880 / 2;
-				}
+		const mobile = checkMobile();
+		const width = window.innerWidth;
+		const height = window.innerHeight;
 
-				if (height !== position[windowName].height - 50) {
-					y = height / 2 - position[windowName].height / 2;
-				} else {
-					y = height / 2 - 550 / 2;
-				}
+		const targetW = mobile ? Math.max(320, width - 20) : Math.min(920, width - 40);
+		const targetH = mobile ? Math.max(450, height - 70) : Math.min(600, height - 100);
 
-				setPosition({
-					...position,
-					[windowName]: {
-						x: x,
-						y: y,
-						width: 880,
-						height: 550,
-					},
-				});
-			};
+		const currentPos = position[windowName] || { x: 0, y: 0, width: 880, height: 550 };
 
-			if (
-				position[windowName].x === 0 &&
-				position[windowName].y === 0 &&
-				maximized[windowName] === null
-			) {
-				await getCenter();
-				setLoading(false);
-			} else {
-				setLoading(false);
-			}
-		})();
+		if (currentPos.x === 0 && currentPos.y === 0 && maximized[windowName] === null) {
+			const x = Math.max(10, Math.floor((width - targetW) / 2));
+			const y = Math.max(10, Math.floor((height - 50 - targetH) / 2));
+
+			setPosition({
+				...position,
+				[windowName]: {
+					x,
+					y,
+					width: targetW,
+					height: targetH,
+				},
+			});
+		}
+		setLoading(false);
 	}, [maximized, position, setPosition, windowName]);
 
 	useEffect(() => {
 		if (loading) return;
+		const currentPos = position[windowName] || { x: 0, y: 0, width: 880, height: 550 };
+
 		if (maximized[windowName] === true) {
 			setLastPos({
-				x: position[windowName].x,
-				y: position[windowName].y,
-				width: position[windowName].width,
-				height: position[windowName].height,
+				x: currentPos.x,
+				y: currentPos.y,
+				width: currentPos.width,
+				height: currentPos.height,
 			});
 
 			setPosition({
@@ -202,7 +176,7 @@ function DraggableWindow({
 					height: window.innerHeight - 50,
 				},
 			});
-		} else if (maximized[windowName] === false) {
+		} else if (maximized[windowName] === false && lastPos.width > 0) {
 			setPosition({
 				...position,
 				[windowName]: {
@@ -215,6 +189,8 @@ function DraggableWindow({
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [maximized[windowName]]);
+
+	const currentWinPos = position[windowName] || { x: 20, y: 20, width: 880, height: 550 };
 
 	return (
 		<AnimatePresence>
@@ -233,7 +209,7 @@ function DraggableWindow({
 						setPosition({
 							...position,
 							[windowName]: {
-								...position[windowName],
+								...currentWinPos,
 								x: d.x,
 								y: d.y,
 							},
@@ -259,15 +235,15 @@ function DraggableWindow({
 						setIsResizing(false);
 					}}
 					size={{
-						width: position[windowName].width || 880,
-						height: position[windowName].height || 550,
+						width: currentWinPos.width,
+						height: currentWinPos.height,
 					}}
 					position={{
-						x: position[windowName].x,
-						y: position[windowName].y,
+						x: currentWinPos.x,
+						y: currentWinPos.y,
 					}}
-					minWidth={880}
-					minHeight={550}
+					minWidth={isMobile ? 320 : 420}
+					minHeight={isMobile ? 380 : 400}
 					className={`${
 						isDragging || isResizing || loading
 							? ''
@@ -281,10 +257,11 @@ function DraggableWindow({
 								}
 					}
 					resizeHandleStyles={handleStyles}
+					disableDragging={isMobile && maximized[windowName] === true}
 				>
 					<motion.div
 						onClick={(e) => handleClick(e, windowName)}
-						className={styles.container}
+						className={`${styles.container} ${maximized[windowName] ? styles.isMaximized : ''}`}
 						variants={variants}
 						animate={
 							maximized[windowName] ? 'maximized' : 'minimized'
@@ -294,73 +271,51 @@ function DraggableWindow({
 								? 'enterFromHistory'
 								: 'enterFresh'
 						}
-						exit={{ scale: 0 }}
-						transition={{ duration: 0.15 }}
+						exit={{ scale: 0.9, opacity: 0 }}
+						transition={{ duration: 0.18 }}
 						style={
 							windowName === 'terminal'
-								? { backgroundColor: 'transparent' }
+								? { backgroundColor: 'rgba(8, 10, 18, 0.95)' }
 								: {}
 						}
 					>
 						<div className={styles.main}>
-							<nav>
+							<nav className={styles.windowNav}>
 								<section className={`${styles.top} draggable`}>
 									{windowName === 'terminal' ? (
-										<>
-											<div
-												className={
-													styles.terminalContainer
-												}
-											>
-												<div>
-													<div>
-														{topIcon}
-														<p>{topTitle}</p>
-													</div>
-													<VscChromeClose />
+										<div className={styles.terminalContainer}>
+											<div>
+												<div className={styles.titleWithIcon}>
+													{topIcon}
+													<p>{topTitle}</p>
 												</div>
-												<div
-													className={
-														styles.manageButtons
-													}
-												>
-													<AiOutlinePlus />
-													<RiArrowDropDownLine />
-												</div>
+												<VscChromeClose onClick={handleClose} className={styles.closeTabIcon} />
 											</div>
-										</>
+											<div className={styles.manageButtons}>
+												<AiOutlinePlus />
+												<RiArrowDropDownLine />
+											</div>
+										</div>
 									) : (
-										<>
-											<div
-												className={styles.topContainer}
-											>
-												{topIcon}
-												<p>{topTitle}</p>
-											</div>
-										</>
+										<div className={styles.topContainer}>
+											{topIcon}
+											<p className={styles.topTitleText}>{topTitle}</p>
+										</div>
 									)}
-									<div
-										className={`${styles.iconContainer} not_draggable`}
-									>
-										<div className={styles.icon}>
+									<div className={`${styles.iconContainer} not_draggable`}>
+										<div className={styles.icon} onClick={() => setMaximized({ ...maximized, [windowName]: false })}>
 											<VscChromeMinimize />
 										</div>
-										<div
-											className={styles.icon}
-											onClick={handleMaximize}
-										>
+										<div className={styles.icon} onClick={handleMaximize}>
 											<VscChromeMaximize />
 										</div>
-										<div
-											className={styles.iconClose}
-											onClick={handleClose}
-										>
+										<div className={styles.iconClose} onClick={handleClose}>
 											<VscChromeClose />
 										</div>
 									</div>
 								</section>
 							</nav>
-							{children}
+							<div className={styles.windowBody}>{children}</div>
 						</div>
 					</motion.div>
 				</Rnd>

@@ -1,0 +1,211 @@
+.container {
+	height: 100%;
+	width: 100%;
+	background: #11121d;
+	color: #fff;
+	overflow-y: auto;
+}
+
+.profileBanner {
+	position: relative;
+	height: 110px;
+	background: linear-gradient(135deg, #5865f2 0%, #ff1a3c 50%, #00f0ff 100%);
+	margin-bottom: 46px;
+}
+
+.avatarContainer {
+	position: absolute;
+	bottom: -40px;
+	left: 24px;
+	position: relative;
+	display: inline-block;
+}
+
+.avatarImg {
+	border-radius: 50%;
+	border: 6px solid #11121d;
+	background: #11121d;
+	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+}
+
+.onlineBadge {
+	position: absolute;
+	bottom: 8px;
+	right: 8px;
+	width: 18px;
+	height: 18px;
+	background: #23a55a;
+	border: 3px solid #11121d;
+	border-radius: 50%;
+}
+
+.profileBody {
+	padding: 0 24px 24px 24px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.userHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+.userHeader h2 {
+	font-size: 1.3rem;
+	font-weight: 700;
+	color: #ffffff;
+}
+
+.tag {
+	font-size: 0.82rem;
+	color: #949ba4;
+}
+
+.copyBtn {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	color: #f2f3f5;
+	padding: 6px 12px;
+	border-radius: 6px;
+	font-size: 0.78rem;
+	cursor: pointer;
+	transition: all 0.15s ease;
+}
+
+.copyBtn:hover {
+	background: #5865f2;
+	border-color: #5865f2;
+	color: #fff;
+}
+
+.statusBox {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	background: rgba(0, 0, 0, 0.25);
+	padding: 8px 12px;
+	border-radius: 8px;
+	border-left: 3px solid #00f0ff;
+}
+
+.statusDot {
+	width: 8px;
+	height: 8px;
+	background: #00f0ff;
+	border-radius: 50%;
+	box-shadow: 0 0 6px #00f0ff;
+}
+
+.statusBox p {
+	font-size: 0.8rem;
+	color: #dbdee1;
+}
+
+.sectionDivider {
+	height: 1px;
+	background: rgba(255, 255, 255, 0.08);
+}
+
+.aboutSection h3,
+.rolesSection h3 {
+	font-size: 0.72rem;
+	font-weight: 700;
+	color: #b5bac1;
+	letter-spacing: 0.5px;
+	margin-bottom: 8px;
+}
+
+.aboutSection p {
+	font-size: 0.82rem;
+	line-height: 1.45;
+	color: #dbdee1;
+}
+
+.rolesList {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.roleTagRed,
+.roleTagCyan,
+.roleTagPurple {
+	font-size: 0.72rem;
+	font-weight: 600;
+	padding: 4px 10px;
+	border-radius: 12px;
+}
+
+.roleTagRed {
+	background: rgba(255, 26, 60, 0.15);
+	color: #ff4d6d;
+	border: 1px solid rgba(255, 26, 60, 0.4);
+}
+
+.roleTagCyan {
+	background: rgba(0, 240, 255, 0.15);
+	color: #00f0ff;
+	border: 1px solid rgba(0, 240, 255, 0.4);
+}
+
+.roleTagPurple {
+	background: rgba(168, 36, 232, 0.15);
+	color: #d164ff;
+	border: 1px solid rgba(168, 36, 232, 0.4);
+}
+
+.serverCard {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 14px 16px;
+	background: rgba(88, 101, 242, 0.12);
+	border: 1px solid rgba(88, 101, 242, 0.35);
+	border-radius: 10px;
+	margin-top: 6px;
+}
+
+.serverInfo {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.serverIcon {
+	font-size: 2rem;
+	color: #5865f2;
+}
+
+.serverInfo h4 {
+	font-size: 0.88rem;
+	font-weight: 700;
+	color: #ffffff;
+}
+
+.serverInfo p {
+	font-size: 0.72rem;
+	color: #949ba4;
+}
+
+.joinServerBtn {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	background: #5865f2;
+	color: #ffffff;
+	padding: 8px 14px;
+	border-radius: 6px;
+	font-size: 0.8rem;
+	font-weight: 600;
+	transition: all 0.15s ease;
+}
+
+.joinServerBtn:hover {
+	background: #4752c4;
+	box-shadow: 0 0 12px rgba(88, 101, 242, 0.5);
+}

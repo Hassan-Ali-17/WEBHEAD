@@ -1,0 +1,262 @@
+.container {
+	height: 100%;
+	width: 100%;
+	background: #080a14;
+	color: #fff;
+	display: flex;
+	flex-direction: column;
+	overflow-y: auto;
+	padding: 24px;
+}
+
+.header {
+	margin-bottom: 24px;
+	border-bottom: 1px solid rgba(255, 26, 60, 0.2);
+	padding-bottom: 16px;
+}
+
+.header h2 {
+	font-size: 1.35rem;
+	font-weight: 700;
+	color: #ffffff;
+}
+
+.header p {
+	font-size: 0.8rem;
+	color: #9aa4bf;
+	margin-top: 4px;
+}
+
+.settingsGrid {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.sectionCard {
+	background: rgba(14, 18, 32, 0.85);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	border-radius: 12px;
+	padding: 20px;
+}
+
+.sectionHeader {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 18px;
+}
+
+.secIcon {
+	font-size: 1.6rem;
+	color: #00f0ff;
+}
+
+.sectionHeader h3 {
+	font-size: 0.95rem;
+	font-weight: 600;
+	color: #ffffff;
+}
+
+.sectionHeader p {
+	font-size: 0.75rem;
+	color: #8b95b0;
+	margin-top: 2px;
+}
+
+.wallpaperGrid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 14px;
+}
+
+.wpCard {
+	display: flex;
+	flex-direction: column;
+	background: rgba(255, 255, 255, 0.03);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	border-radius: 10px;
+	padding: 8px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.wpCard:hover {
+	transform: translateY(-2px);
+	border-color: rgba(0, 240, 255, 0.4);
+}
+
+.wpSelected {
+	border-color: #ff1a3c !important;
+	box-shadow: 0 0 15px rgba(255, 26, 60, 0.4);
+	background: rgba(255, 26, 60, 0.1) !important;
+}
+
+.wpImageWrapper {
+	position: relative;
+	width: 100%;
+	height: 100px;
+	border-radius: 6px;
+	overflow: hidden;
+}
+
+.wpThumb {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.activeWpBadge {
+	position: absolute;
+	top: 6px;
+	right: 6px;
+	background: #ff1a3c;
+	color: #fff;
+	font-size: 0.65rem;
+	font-weight: 700;
+	padding: 2px 6px;
+	border-radius: 4px;
+}
+
+.wpName {
+	font-size: 0.75rem;
+	font-weight: 600;
+	color: #e4e9f5;
+	margin-top: 8px;
+	text-align: center;
+}
+
+.themeOptions {
+	display: flex;
+	gap: 12px;
+	flex-wrap: wrap;
+}
+
+.themeBtn {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 16px;
+	background: rgba(255, 255, 255, 0.05);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: 8px;
+	color: #e4e9f5;
+	font-size: 0.8rem;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.15s ease;
+}
+
+.themeBtn:hover {
+	background: rgba(255, 255, 255, 0.1);
+}
+
+.themeActive {
+	border-color: #00f0ff !important;
+	box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+}
+
+.themeDotRed,
+.themeDotCyan,
+.themeDotPurple {
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+}
+
+.themeDotRed { background: #ff1a3c; box-shadow: 0 0 6px #ff1a3c; }
+.themeDotCyan { background: #00f0ff; box-shadow: 0 0 6px #00f0ff; }
+.themeDotPurple { background: #a824e8; box-shadow: 0 0 6px #a824e8; }
+
+.toggleRow {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 0.85rem;
+}
+
+.segmentedButtons {
+	display: flex;
+	background: rgba(0, 0, 0, 0.3);
+	padding: 3px;
+	border-radius: 8px;
+	border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.segBtn {
+	padding: 6px 14px;
+	background: transparent;
+	color: #8b95b0;
+	font-size: 0.78rem;
+	font-weight: 600;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: all 0.15s ease;
+}
+
+.segBtnActive {
+	background: #ff1a3c;
+	color: #ffffff;
+	box-shadow: 0 0 8px rgba(255, 26, 60, 0.4);
+}
+
+.switchRow {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 0;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.switchRow:last-child {
+	border-bottom: none;
+}
+
+.switchRow strong {
+	display: block;
+	font-size: 0.84rem;
+	color: #ffffff;
+}
+
+.switchRow p {
+	font-size: 0.72rem;
+	color: #8b95b0;
+	margin-top: 2px;
+}
+
+.toggleSwitch {
+	width: 44px;
+	height: 24px;
+	background: rgba(255, 255, 255, 0.15);
+	border-radius: 12px;
+	position: relative;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+	border: none;
+}
+
+.switchHandle {
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: 20px;
+	height: 20px;
+	background: #ffffff;
+	border-radius: 50%;
+	transition: transform 0.2s ease;
+}
+
+.switchOn {
+	background: #00f0ff;
+	box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+.switchOn .switchHandle {
+	transform: translateX(20px);
+}
+
+@media (max-width: 880px) {
+	.wallpaperGrid {
+		grid-template-columns: 1fr;
+	}
+}

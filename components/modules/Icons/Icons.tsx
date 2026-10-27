@@ -55,113 +55,161 @@ function Icons() {
 			<div className={`elements ${styles.container}`}>
 				<div className={`selecto-area ${styles.wrapper}`} id="selecto1">
 					<Link
-						href={'/notepad/about'}
+						href={'/about'}
+						className={`${styles.item} selectoItem`}
+						draggable={false}
+					>
+						<Image
+							src="/images/webhead-avatar.jpg"
+							alt="About Hassan"
+							width={42}
+							height={42}
+							style={{ borderRadius: '50%', border: '1.5px solid #ff1a3c' }}
+						/>
+						<p>About Me</p>
+					</Link>
+
+					<Link
+						href={'/projects'}
+						className={`${styles.item} selectoItem`}
+						draggable={false}
+					>
+						<Image
+							src="/icons/folder/folder.png"
+							alt="Projects"
+							width={40}
+							height={40}
+						/>
+						<p>Projects</p>
+					</Link>
+
+					<Link
+						href={'/chat'}
+						className={`${styles.item} selectoItem`}
+						draggable={false}
+					>
+						<Image
+							src="/icons/discord/discord.png"
+							alt="Live Chat"
+							width={40}
+							height={40}
+						/>
+						<p>Public Chat</p>
+					</Link>
+
+					<Link
+						href={'/spotify'}
+						className={`${styles.item} selectoItem`}
+						draggable={false}
+					>
+						<Image
+							src="/icons/spotify/spotify.png"
+							alt="Spotify"
+							width={40}
+							height={40}
+						/>
+						<p>Music Room</p>
+					</Link>
+
+					<Link
+						href={'/discord'}
+						className={`${styles.item} selectoItem`}
+						draggable={false}
+					>
+						<Image
+							src="/icons/discord/discord.png"
+							alt="Discord"
+							width={40}
+							height={40}
+						/>
+						<p>Discord</p>
+					</Link>
+
+					<Link
+						href={'/resume'}
 						className={`${styles.item} selectoItem`}
 						draggable={false}
 					>
 						<Image
 							src="/icons/notes/notes.png"
-							alt="icon"
+							alt="Resume"
 							width={40}
 							height={40}
-						></Image>
-						<p>About me</p>
+						/>
+						<p>Resume</p>
 					</Link>
+
 					<Link
-						href={'/explorer/projects'}
-						className={`${styles.item} selectoItem`}
-						draggable={false}
-					>
-						<Image
-							src="/icons/folder/folder.png"
-							alt="icon"
-							width={40}
-							height={40}
-						></Image>
-						<p>Projects</p>
-					</Link>
-					<Link
-						href={'/explorer/tools'}
-						className={`${styles.item} selectoItem`}
-						draggable={false}
-					>
-						<Image
-							src="/icons/folder/folder.png"
-							alt="icon"
-							width={40}
-							height={40}
-						></Image>
-						<p>Tools</p>
-					</Link>
-					<Link
-						href={'/explorer/podcasts'}
-						className={`${styles.item} selectoItem`}
-						draggable={false}
-					>
-						<Image
-							src="/icons/folder/folder.png"
-							alt="icon"
-							width={40}
-							height={40}
-						></Image>
-						<p>Podcasts I listen to</p>
-					</Link>
-					<Link
-						href={'/explorer/links'}
-						className={`${styles.item} selectoItem`}
-						draggable={false}
-					>
-						<Image
-							src="/icons/links/links.png"
-							alt="icon"
-							width={40}
-							height={40}
-						></Image>
-						<p>Links</p>
-					</Link>
-					<Link
-						href={'/explorer/pictures'}
+						href={'/weather'}
 						className={`${styles.item} selectoItem`}
 						draggable={false}
 					>
 						<Image
 							src="/icons/pictures/pictures.png"
-							alt="icon"
+							alt="Weather"
 							width={40}
 							height={40}
-						></Image>
-						<p>Pictures</p>
+						/>
+						<p>Weather</p>
 					</Link>
+
 					<Link
-						href={'/explorer/videos'}
+						href={'/settings'}
 						className={`${styles.item} selectoItem`}
 						draggable={false}
 					>
 						<Image
-							src="/icons/videos/videos.png"
-							alt="icon"
+							src="/icons/shortcut/shortcut.png"
+							alt="Settings"
 							width={40}
 							height={40}
-							quality={100}
-						></Image>
-						<p>Videos</p>
+						/>
+						<p>Settings</p>
+					</Link>
+
+					<Link
+						href={'/terminal'}
+						className={`${styles.item} selectoItem`}
+						draggable={false}
+					>
+						<Image
+							src="/icons/terminal/terminal.png"
+							alt="Terminal"
+							width={40}
+							height={40}
+						/>
+						<p>Terminal</p>
+					</Link>
+
+					<Link
+						href={'/explorer/quick-access'}
+						className={`${styles.item} selectoItem`}
+						draggable={false}
+					>
+						<Image
+							src="/icons/explorer/explorer.png"
+							alt="Explorer"
+							width={40}
+							height={40}
+						/>
+						<p>File Explorer</p>
 					</Link>
 
 					<div className={`${styles.item} selectoItem recycleBin`}>
 						{deleted ? (
 							<Image
 								src="/icons/trash/trash_full.png"
-								alt="icon"
+								alt="Recycle Bin Full"
 								width={40}
 								height={40}
-							></Image>
+							/>
 						) : (
 							<Image
 								src="/icons/trash/trash_empty.png"
-								alt="icon"
+								alt="Recycle Bin Empty"
 								width={40}
 								height={40}
-							></Image>
+							/>
 						)}
 						<p>Recycle Bin</p>
 					</div>

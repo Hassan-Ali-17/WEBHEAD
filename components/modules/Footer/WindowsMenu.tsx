@@ -1,10 +1,11 @@
 import { motion } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AiOutlinePoweroff } from 'react-icons/ai';
 import { IoIosArrowForward } from 'react-icons/io';
 import { VscSearch } from 'react-icons/vsc';
+import { PORTFOLIO_CONFIG } from '../../../config/portfolio.config';
 import styles from './WindowsMenu.module.css';
 
 type Props = {
@@ -15,15 +16,17 @@ type Props = {
 const slideVerticalAnimation = {
 	open: {
 		y: 0,
+		opacity: 1,
 		transition: {
-			duration: 0.3,
+			duration: 0.25,
 		},
 		display: 'block',
 	},
 	close: {
 		y: 550,
+		opacity: 0,
 		transition: {
-			duration: 0.3,
+			duration: 0.2,
 		},
 		transitionEnd: {
 			display: 'none',
@@ -31,8 +34,22 @@ const slideVerticalAnimation = {
 	},
 };
 
+const APPS_LIST = [
+	{ name: 'About Hassan', href: '/about', icon: '/images/webhead-avatar.jpg', isRound: true },
+	{ name: 'Projects Showcase', href: '/projects', icon: '/icons/folder/folder.png' },
+	{ name: 'Public Chat', href: '/chat', icon: '/icons/discord/discord.png' },
+	{ name: 'Spotify Music', href: '/spotify', icon: '/icons/spotify/spotify.png' },
+	{ name: 'Discord', href: '/discord', icon: '/icons/discord/discord.png' },
+	{ name: 'Resume (PDF)', href: '/resume', icon: '/icons/notes/notes.png' },
+	{ name: 'Weather Station', href: '/weather', icon: '/icons/pictures/pictures.png' },
+	{ name: 'Settings', href: '/settings', icon: '/icons/shortcut/shortcut.png' },
+	{ name: 'Cyber Terminal', href: '/terminal', icon: '/icons/terminal/terminal.png' },
+	{ name: 'File Explorer', href: '/explorer/quick-access', icon: '/icons/explorer/explorer.png' },
+];
+
 function WindowsMenu({ winMenu, handleWinMenu }: Props) {
 	const node = useRef<HTMLDivElement>(null);
+	const [searchQuery, setSearchQuery] = useState('');
 
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
@@ -40,9 +57,11 @@ function WindowsMenu({ winMenu, handleWinMenu }: Props) {
 			if (null === node.current) return;
 			if (
 				node.current.contains(target) ||
-				target.classList.contains('windowsIcon')
-			)
+				target.classList.contains('windowsIcon') ||
+				target.closest('.windowsIcon')
+			) {
 				return;
+			}
 			if (winMenu) {
 				handleWinMenu();
 			}
@@ -59,6 +78,10 @@ function WindowsMenu({ winMenu, handleWinMenu }: Props) {
 		};
 	}, [handleWinMenu, winMenu]);
 
+	const filteredApps = searchQuery.trim()
+		? APPS_LIST.filter((app) => app.name.toLowerCase().includes(searchQuery.toLowerCase()))
+		: APPS_LIST;
+
 	return (
 		<motion.div
 			initial="close"
@@ -68,144 +91,149 @@ function WindowsMenu({ winMenu, handleWinMenu }: Props) {
 		>
 			<div className={styles.winMenu} ref={node}>
 				<div className={styles.winMenuContainer}>
+					{/* Search Bar */}
 					<div className={styles.winMenuSearch}>
 						<div className={styles.inputWithIcon}>
-							<VscSearch />
+							<VscSearch className={styles.searchIcon} />
 							<input
 								type="text"
-								placeholder="Type here to search"
+								placeholder="Search Spider-Verse apps and files..."
+								value={searchQuery}
+								onChange={(e) => setSearchQuery(e.target.value)}
 							/>
 						</div>
 					</div>
+
+					{/* Pinned Applications */}
 					<div className={styles.winMenuPinned}>
 						<div className={styles.winMenuPinnedContainer}>
 							<div className={styles.winMenuPinnedTop}>
-								<h2>Pinned</h2>
+								<h2>Spider Apps</h2>
 								<div>
-									<p>All apps</p>
+									<p>{filteredApps.length} Available</p>
 									<IoIosArrowForward />
 								</div>
 							</div>
-							<div className={styles.winMenuPinnedBottom}>
-								<Link
-									href="/explorer/quick-access"
-									onClick={() => handleWinMenu()}
-									draggable={false}
-								>
-									<Image
-										src="/icons/explorer/explorer.png"
-										alt="img"
-										width={30}
-										height={30}
-									></Image>
-									<p>File Explorer</p>
-								</Link>
-								<Link
-									href="/explorer/pictures"
-									onClick={() => handleWinMenu()}
-									draggable={false}
-								>
-									<Image
-										src="/icons/pictures/pictures.png"
-										alt="img"
-										width={30}
-										height={30}
-									></Image>
-									<p>Photos</p>
-								</Link>
-								<Link
-									href="/explorer/videos"
-									onClick={() => handleWinMenu()}
-									draggable={false}
-								>
-									<Image
-										src="/icons/videos/videos.png"
-										alt="img"
-										width={30}
-										height={30}
-									></Image>
-									<p>Videos</p>
-								</Link>
+							<div className={styles.winMenuGrid}>
+								{filteredApps.map((app) => (
+									<Link
+										key={app.name}
+										href={app.href}
+										onClick={() => handleWinMenu()}
+										className={styles.appCard}
+										draggable={false}
+									>
+										<div className={styles.appIconWrapper}>
+											<Image
+												src={app.icon}
+												alt={app.name}
+												width={34}
+												height={34}
+												style={app.isRound ? { borderRadius: '50%', border: '1px solid #ff1a3c' } : {}}
+											/>
+										</div>
+										<p>{app.name}</p>
+									</Link>
+								))}
 							</div>
 						</div>
+
+						{/* Recommended Section */}
 						<div className={styles.winMenuPinnedContainer}>
 							<div className={styles.winMenuPinnedTop}>
 								<h2>Recommended</h2>
-								<div>
-									<p>More</p>
+								<Link href="/projects" onClick={() => handleWinMenu()} className={styles.moreLink}>
+									<p>View All Projects</p>
 									<IoIosArrowForward />
-								</div>
+								</Link>
 							</div>
-							<div className={styles.winMenuRecommendedBottom}>
-								<div className={styles.winMenuRecommendedItem}>
-									<Link
-										href="/explorer/quick-access"
-										onClick={() => handleWinMenu()}
-										draggable={false}
-									>
-										<Image
-											src="/icons/explorer/explorer.png"
-											alt="img"
-											width={30}
-											height={30}
-										></Image>
-										<p>File Explorer</p>
-									</Link>
-									<Link
-										href="/explorer/pictures"
-										onClick={() => handleWinMenu()}
-										draggable={false}
-									>
-										<Image
-											src="/icons/pictures/pictures.png"
-											alt="img"
-											width={30}
-											height={30}
-										></Image>
-										<p>Photos</p>
-									</Link>
-								</div>
-								<div className={styles.winMenuRecommendedItem}>
-									<Link
-										href="/explorer/videos"
-										onClick={() => handleWinMenu()}
-										draggable={false}
-									>
-										<Image
-											src="/icons/videos/videos.png"
-											alt="img"
-											width={30}
-											height={30}
-										></Image>
-										<p>Videos</p>
-									</Link>
+							<div className={styles.recommendedGrid}>
+								<Link
+									href="/about"
+									onClick={() => handleWinMenu()}
+									className={styles.recCard}
+								>
+									<Image
+										src="/images/webhead-avatar.jpg"
+										alt="Hassan Ali Shah"
+										width={30}
+										height={30}
+										style={{ borderRadius: '50%' }}
+									/>
 									<div>
-										<Image
-											src="/icons/firefox/firefox.png"
-											alt="img"
-											width={30}
-											height={30}
-										></Image>
-										<p>Firefox</p>
+										<h4>About {PORTFOLIO_CONFIG.owner.name}</h4>
+										<p>Full-Stack Developer Profile</p>
 									</div>
-								</div>
+								</Link>
+
+								<Link
+									href="/chat"
+									onClick={() => handleWinMenu()}
+									className={styles.recCard}
+								>
+									<Image
+										src="/icons/discord/discord.png"
+										alt="Chat"
+										width={30}
+										height={30}
+									/>
+									<div>
+										<h4>Public Webhead Chat</h4>
+										<p>Real-Time Multi-Visitor Chat</p>
+									</div>
+								</Link>
+
+								<Link
+									href="/spotify"
+									onClick={() => handleWinMenu()}
+									className={styles.recCard}
+								>
+									<Image
+										src="/icons/spotify/spotify.png"
+										alt="Spotify"
+										width={30}
+										height={30}
+									/>
+									<div>
+										<h4>Into the Spider-Verse OST</h4>
+										<p>Listen while exploring</p>
+									</div>
+								</Link>
 							</div>
 						</div>
 					</div>
 				</div>
+
+				{/* User Profile Footer */}
 				<div className={styles.winMenuFooter}>
-					<div>
+					<Link
+						href="/about"
+						onClick={() => handleWinMenu()}
+						className={styles.userProfile}
+					>
 						<Image
-							src="/images/windowsUser.webp"
-							alt=""
-							width={30}
-							height={30}
-						></Image>
-						<p>kassq</p>
-					</div>
-					<div>
+							src="/images/webhead-avatar.jpg"
+							alt={PORTFOLIO_CONFIG.owner.name}
+							width={34}
+							height={34}
+							style={{ borderRadius: '50%', border: '1.5px solid #ff1a3c' }}
+						/>
+						<div className={styles.userInfo}>
+							<p className={styles.userName}>{PORTFOLIO_CONFIG.owner.name}</p>
+							<span className={styles.userRole}>Earth-1610 // Online</span>
+						</div>
+					</Link>
+					<button
+						className={styles.powerButton}
+						onClick={() => {
+							if (window.confirm('Restart Spider-Verse Workstation?')) {
+								window.location.href = '/';
+							}
+						}}
+						title="Restart Workstation"
+					>
 						<AiOutlinePoweroff />
-					</div>
+					</button>
 				</div>
 				<div className={styles.winMenuBg} />
 			</div>

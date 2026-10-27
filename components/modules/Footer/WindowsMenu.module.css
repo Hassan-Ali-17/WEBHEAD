@@ -1,185 +1,239 @@
 .overflow {
 	position: absolute;
-	right: 0;
-	bottom: 50px;
-	left: 0;
-	z-index: 997;
-	overflow: hidden;
-	width: 35rem;
-	height: 35rem;
-	margin: auto;
+	bottom: 56px;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 999;
 }
 
 .winMenu {
-	position: absolute;
-	width: 100%;
-	height: calc(100% - 10px);
-	transition: all 0.4s ease-in-out;
-}
-
-.winMenuContainer {
-	position: absolute;
-	z-index: 2;
-	width: 100%;
-	height: 100%;
-	padding: 30px;
-	border-radius: 15px;
-}
-
-.winMenuBg {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	border: 1px solid rgb(128 128 128 / 27.5%);
-	border-radius: 15px;
-	background-image: url('/images/darknoice.png');
-	opacity: 0.9;
-}
-
-.winMenuSearch input[type='text'] {
-	box-sizing: border-box;
-	width: 100%;
-	margin: 8px 0;
-	padding: 8px;
-	padding-left: 40px;
-	border: 1px solid rgb(128 128 128 / 17.2%);
-	border-bottom: 2px solid #4cc2ff;
-	border-radius: 4px;
-	background-color: #1a1a1a;
-	color: #c6c6c6;
-	outline: none;
-}
-
-.winMenuSearch .inputWithIcon {
-	position: relative;
-	color: #c6c6c6;
-}
-
-.winMenuSearch .inputWithIcon svg {
-	position: absolute;
-	top: 8px;
-	left: 0;
-	padding: 8px;
-	padding-bottom: 5px;
-	font-size: 2rem;
-}
-
-.winMenuPinned {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	height: calc(100% - 100px);
+	width: 580px;
+	max-width: 95vw;
+	height: 600px;
+	max-height: 85vh;
+	border-radius: 14px;
+	background: rgba(10, 13, 24, 0.94);
+	backdrop-filter: blur(30px);
+	-webkit-backdrop-filter: blur(30px);
+	border: 1px solid rgba(255, 26, 60, 0.35);
+	box-shadow: 0 16px 50px rgba(0, 0, 0, 0.9), 0 0 25px rgba(255, 26, 60, 0.15);
+	overflow: hidden;
+}
+
+.winMenuContainer {
+	padding: 24px 28px 10px 28px;
+	flex: 1;
+	overflow-y: auto;
+}
+
+.winMenuSearch {
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+.inputWithIcon {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	background: rgba(255, 255, 255, 0.06);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: 20px;
+	padding: 8px 16px;
+	transition: all 0.2s ease;
+}
+
+.inputWithIcon:focus-within {
+	border-color: #00f0ff;
+	box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+	background: rgba(0, 240, 255, 0.05);
+}
+
+.searchIcon {
+	color: #00f0ff;
+	font-size: 1.1rem;
+}
+
+.inputWithIcon input {
+	width: 100%;
+	background: transparent;
+	color: #ffffff;
+	font-size: 0.88rem;
+}
+
+.inputWithIcon input::placeholder {
+	color: #6d7796;
 }
 
 .winMenuPinnedTop {
 	display: flex;
 	justify-content: space-between;
-	margin-top: 20px;
-}
-
-.winMenuPinnedTop p {
-	font-size: 0.6rem;
+	align-items: center;
+	margin-bottom: 12px;
 }
 
 .winMenuPinnedTop h2 {
-	color: #fff;
-	font-size: 0.8rem;
+	font-size: 0.88rem;
+	font-weight: 600;
+	color: #e4e9f5;
+	letter-spacing: 0.3px;
 }
 
-.winMenuPinnedTop div:nth-child(2) {
+.winMenuPinnedTop div,
+.moreLink {
 	display: flex;
-	gap: 5px;
 	align-items: center;
-	justify-content: center;
-	height: 25px;
-	padding: 0 10px;
-	border-radius: 5px;
-	background-color: #353636;
-	color: #fff;
-	font-size: 0.8rem;
+	gap: 4px;
+	font-size: 0.72rem;
+	color: #9aa4bf;
+	cursor: pointer;
 }
 
-.winMenuRecommendedBottom {
+.moreLink:hover {
+	color: #00f0ff;
+}
+
+.winMenuGrid {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	gap: 10px;
+	margin-bottom: 24px;
+}
+
+.appCard {
 	display: flex;
 	flex-direction: column;
-	margin-top: 5px;
-}
-
-.winMenuRecommendedItem {
-	display: flex;
-	gap: 5px;
-	width: 100%;
-}
-
-/* Direct child, not `div`: these tiles are <Link>s, so Next renders them as
-   <a>, while the Firefox tile is still a plain <div>. */
-.winMenuRecommendedItem > * {
-	display: flex;
-	gap: 5px;
 	align-items: center;
-	width: 50%;
-	padding: 8px 10px;
-	border-radius: 5px;
-}
-
-.winMenuRecommendedItem > *:hover {
-	background-color: #2e2e2e;
-}
-
-.winMenuPinnedBottom {
-	display: flex;
-	align-items: center;
-	margin-top: 5px;
+	justify-content: center;
+	padding: 10px 4px;
+	border-radius: 8px;
 	text-align: center;
+	transition: all 0.15s ease;
 }
 
-.winMenuPinnedBottom > * {
+.appCard:hover {
+	background: rgba(255, 255, 255, 0.08);
+	transform: translateY(-2px);
+}
+
+.appIconWrapper {
+	margin-bottom: 6px;
+}
+
+.appCard p {
+	font-size: 0.72rem;
+	font-weight: 500;
+	color: #e4e9f5;
+}
+
+.recommendedGrid {
 	display: flex;
 	flex-direction: column;
-	gap: 3px;
+	gap: 8px;
+}
+
+.recCard {
+	display: flex;
 	align-items: center;
-	justify-content: center;
-	width: 80px;
-	height: 80px;
-	border-radius: 5px;
+	gap: 12px;
+	padding: 8px 12px;
+	border-radius: 8px;
+	background: rgba(255, 255, 255, 0.03);
+	border: 1px solid rgba(255, 255, 255, 0.05);
+	transition: all 0.15s ease;
 }
 
-.winMenuPinnedBottom > *:hover {
-	background-color: #353636;
+.recCard:hover {
+	background: rgba(0, 240, 255, 0.08);
+	border-color: rgba(0, 240, 255, 0.3);
 }
 
-.winMenuPinnedContainer {
-	padding-right: 20px;
-	padding-left: 20px;
+.recCard h4 {
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: #ffffff;
+}
+
+.recCard p {
+	font-size: 0.7rem;
+	color: #8b95b0;
 }
 
 .winMenuFooter {
-	position: absolute;
-	bottom: 0;
-	z-index: 1;
 	display: flex;
 	justify-content: space-between;
-	width: 100%;
-	padding: 10px;
-	border-top: 1px solid rgb(128 128 128 / 27.5%);
-	border-radius: 0 0 15px 15px;
-	background-color: rgb(0 0 0 / 15%);
-	color: #fff;
-	font-size: 1.2rem;
-}
-
-.winMenuFooter p {
-	font-size: 0.8rem;
-}
-
-.winMenuFooter div {
-	display: flex;
-	gap: 10px;
 	align-items: center;
-	margin-right: 20px;
-	margin-left: 20px;
+	padding: 14px 28px;
+	background: rgba(7, 9, 16, 0.98);
+	border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.winMenuFooter img {
-	border-radius: 50%;
+.userProfile {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 4px 8px;
+	border-radius: 6px;
+	transition: background-color 0.15s ease;
+}
+
+.userProfile:hover {
+	background: rgba(255, 255, 255, 0.08);
+}
+
+.userInfo {
+	display: flex;
+	flex-direction: column;
+}
+
+.userName {
+	font-size: 0.82rem;
+	font-weight: 600;
+	color: #ffffff;
+}
+
+.userRole {
+	font-size: 0.65rem;
+	color: #00f0ff;
+}
+
+.powerButton {
+	background: transparent;
+	color: #9aa4bf;
+	font-size: 1.25rem;
+	border-radius: 6px;
+	padding: 6px;
+	cursor: pointer;
+	transition: all 0.15s ease;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.powerButton:hover {
+	background: rgba(255, 26, 60, 0.2);
+	color: #ff1a3c;
+}
+
+@media (max-width: 880px) {
+	.overflow {
+		bottom: 58px;
+		left: 0;
+		right: 0;
+		transform: none;
+		width: 100vw;
+	}
+
+	.winMenu {
+		width: 100vw;
+		max-width: 100vw;
+		height: 75vh;
+		border-radius: 16px 16px 0 0;
+	}
+
+	.winMenuGrid {
+		grid-template-columns: repeat(4, 1fr);
+	}
 }

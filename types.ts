@@ -25,4 +25,22 @@ export type ProjectType = {
 	name: string;
 	updated_at: string;
 	size: number;
+	description?: string;
+	stargazers_count?: number;
+	language?: string;
+};
+
+export type WallpaperOption = {
+	id: string;
+	name: string;
+	url: string;
+	thumbnail: string;
+};
+
+export type DesktopSettings = {
+	wallpaper: string;
+	clockFormat: '12h' | '24h';
+	themeAccent: 'red' | 'cyan' | 'purple';
+	reducedMotion: boolean;
+	soundEnabled: boolean;
 };

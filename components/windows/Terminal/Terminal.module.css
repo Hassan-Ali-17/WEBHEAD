@@ -12,54 +12,62 @@
 	overflow-y: auto;
 	width: 100%;
 	height: calc(100% - 32px);
-	padding: 10px;
+	padding: 12px 16px;
 	font-weight: 600;
-	font-family: 'Lucida Console', sans-serif;
+	font-family: 'Lucida Console', monospace, sans-serif;
 }
 
 .main p {
-	font-size: 0.9rem;
+	font-size: 0.88rem;
+	line-height: 1.45;
 }
 
 .terminalTitle {
-	color: rgb(64 200 64);
+	color: #ff1a3c;
 }
 
 .terminalTitle > span {
-	color: rgb(190 190 0);
+	color: #00f0ff;
 }
 
 .terminalTitle > span:first-child {
-	color: rgb(200 64 255);
+	color: #d164ff;
+}
+
+.terminalResponse {
+	color: #d8e2f0;
+	margin-top: 3px;
+	word-break: break-word;
 }
 
 .promt {
 	display: flex;
-	gap: 5px;
+	gap: 6px;
 	align-items: flex-start;
 	height: 100%;
-	color: #fff;
+	color: #00f0ff;
 }
 
 .promt input {
 	width: 100%;
 	border: none;
 	background-color: transparent;
-	color: #fff;
+	color: #ffffff;
 	outline: none;
 	font-weight: 600;
-	font-size: 0.9rem;
+	font-size: 0.88rem;
 	overflow-wrap: break-word;
+	font-family: inherit;
 }
 
 .historyItem {
-	padding-top: 10px;
-	padding-bottom: 10px;
+	padding-top: 6px;
+	padding-bottom: 6px;
 }
 
 .background {
 	height: calc(100% - 32px);
 	border-radius: 0 0 10px 10px;
-	background-image: url('/images/darknoice.png');
-	opacity: 0.9;
+	background: rgba(8, 10, 18, 0.95);
+	opacity: 0.95;
 }

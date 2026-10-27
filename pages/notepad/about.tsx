@@ -1,47 +1,48 @@
 import Head from 'next/head';
 import Icons from '../../components/modules/Icons/Icons';
 import Notepad from '../../components/windows/Notepad/Notepad';
+import { PORTFOLIO_CONFIG } from '../../config/portfolio.config';
+
 function About() {
-	const getAge = () => {
-		const dateString = '2002-01-30';
-		var today = new Date();
-		var birthDate = new Date(dateString);
-		var age = today.getFullYear() - birthDate.getFullYear();
-		var m = today.getMonth() - birthDate.getMonth();
-		if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-			age--;
-		}
-		return age;
-	};
 	const textContent = () => {
-		return `Hello, my name is Kasperi! 👋\n\nI am a ${getAge()}-year-old Computer Science student from Tampere, Finland. I am interested on all kinds of tech related topics such as web development! Open the Links folder to follow me on social media! 🤠\n\nBtw this website is built with Next.js and React and is recreation of my windows desktop :D\n\nMessy source code available on GitHub: https://github.com/KasperiP/windows11-portfolio
-		`;
+		return `========================================
+WEBHEAD // SPIDER-VERSE DEVELOPER DOSSIER
+========================================
+Owner: ${PORTFOLIO_CONFIG.owner.name}
+Role: ${PORTFOLIO_CONFIG.owner.title}
+Base: ${PORTFOLIO_CONFIG.owner.location}
+Tagline: "${PORTFOLIO_CONFIG.owner.tagline}"
+
+ABOUT ME:
+${PORTFOLIO_CONFIG.owner.bio}
+
+CORE SUPERPOWERS:
+- Frontend: ${PORTFOLIO_CONFIG.owner.skills.frontend.join(', ')}
+- Backend: ${PORTFOLIO_CONFIG.owner.skills.backend.join(', ')}
+- Tools: ${PORTFOLIO_CONFIG.owner.skills.tools.join(', ')}
+- Spider-Verse: ${PORTFOLIO_CONFIG.owner.skills.spiderverse.join(', ')}
+
+CONNECT:
+- GitHub: ${PORTFOLIO_CONFIG.owner.socials.github}
+- LinkedIn: ${PORTFOLIO_CONFIG.owner.socials.linkedin}
+- Discord: ${PORTFOLIO_CONFIG.discord.username}
+- Email: ${PORTFOLIO_CONFIG.owner.email}
+
+Open the Projects or Public Chat windows on the desktop to interact in real-time!
+`;
 	};
 
 	return (
 		<>
 			<Head>
-				<title>kassq - About me</title>
+				<title>{PORTFOLIO_CONFIG.owner.name} - About Me</title>
 				<link
 					rel="canonical"
-					href="https://www.kassq.dev/notepad/about"
+					href="https://webhead-portfolio.vercel.app/notepad/about"
 				/>
-
-				{/* Description */}
 				<meta
 					name="description"
-					content="Who am I? I guess you will find out after reading this."
-				/>
-
-				{/* OpenGraph */}
-				<meta property="og:title" content="Kassq - About me" />
-				<meta
-					property="og:url"
-					content="https://www.kassq.dev/notepad/about"
-				/>
-				<meta
-					property="og:description"
-					content="Who am I? I guess you will find out after reading this."
+					content={PORTFOLIO_CONFIG.owner.bio}
 				/>
 			</Head>
 			<div style={{ height: '100%' }}>
