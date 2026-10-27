@@ -11,9 +11,13 @@ CREATE TABLE IF NOT EXISTS public.messages (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
     display_name VARCHAR(50) NOT NULL,
     avatar VARCHAR(50) DEFAULT 'miles' NOT NULL,
+    github_username VARCHAR(50),
     content VARCHAR(500) NOT NULL,
     is_reported BOOLEAN DEFAULT FALSE NOT NULL
 );
+
+-- Ensure github_username column exists on existing tables
+ALTER TABLE public.messages ADD COLUMN IF NOT EXISTS github_username VARCHAR(50);
 
 -- Index for fast ordering by creation time
 CREATE INDEX IF NOT EXISTS idx_messages_created_at ON public.messages (created_at DESC);

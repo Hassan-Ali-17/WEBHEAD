@@ -7,6 +7,7 @@ export interface ChatMessage {
 	display_name: string;
 	avatar: string;
 	content: string;
+	github_username?: string;
 	is_reported?: boolean;
 }
 
@@ -72,17 +73,33 @@ export const sendChatMessage = async (
 	}
 
 	try {
-		const { data, error } = await client
+		const payload: Record<string, unknown> = {
+			display_name: message.display_name.trim().slice(0, 50),
+			avatar: message.avatar || 'miles',
+			content: message.content.trim().slice(0, 500),
+		};
+
+		if (message.github_username) {
+			payload.github_username = message.github_username.trim().slice(0, 50);
+		}
+
+		let { data, error } = await client
 			.from('messages')
-			.insert([
-				{
-					display_name: message.display_name.trim().slice(0, 50),
-					avatar: message.avatar || 'miles',
-					content: message.content.trim().slice(0, 500),
-				},
-			])
+			.insert([payload])
 			.select()
 			.single();
+
+		// If column github_username is not yet present on remote DB, fallback gracefully
+		if (error && error.message && error.message.toLowerCase().includes('github_username')) {
+			delete payload.github_username;
+			const retry = await client
+				.from('messages')
+				.insert([payload])
+				.select()
+				.single();
+			data = retry.data;
+			error = retry.error;
+		}
 
 		if (error) {
 			return { success: false, error: error.message };

@@ -9,7 +9,11 @@ const nextConfig: NextConfig = {
 		root: path.resolve(import.meta.dirname),
 	},
 	images: {
-		remotePatterns: [{ protocol: 'https', hostname: 'res.cloudinary.com' }],
+		remotePatterns: [
+			{ protocol: 'https', hostname: 'res.cloudinary.com' },
+			{ protocol: 'https', hostname: 'avatars.githubusercontent.com' },
+			{ protocol: 'https', hostname: 'github.com' },
+		],
 		formats: ['image/avif', 'image/webp'],
 		imageSizes: [16, 32, 64, 128, 256, 512],
 		// Icons.tsx and podcasts.tsx request quality={100}; Next 16 rejects
