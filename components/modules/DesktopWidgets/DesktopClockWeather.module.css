@@ -1,0 +1,103 @@
+.widgetGroup {
+	position: absolute;
+	top: 24px;
+	right: 28px;
+	display: flex;
+	gap: 14px;
+	z-index: 4;
+	pointer-events: auto;
+}
+
+.widgetCard {
+	background: rgba(20, 24, 38, 0.45);
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+	border: 1px solid rgba(255, 255, 255, 0.14);
+	border-radius: 14px;
+	padding: 14px 20px;
+	color: #ffffff;
+	box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.widgetCard:hover {
+	border-color: rgba(0, 240, 255, 0.4);
+	transform: translateY(-2px);
+}
+
+.clockWidget {
+	min-width: 170px;
+}
+
+.clockHeader {
+	font-size: 0.68rem;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	color: rgba(255, 255, 255, 0.55);
+	margin-bottom: 2px;
+	font-weight: 600;
+}
+
+.clockTime {
+	font-size: 2.1rem;
+	font-weight: 700;
+	letter-spacing: -0.5px;
+	line-height: 1.1;
+	color: #ffffff;
+	font-family: inherit;
+}
+
+.clockDate {
+	font-size: 0.76rem;
+	color: rgba(255, 255, 255, 0.7);
+	margin-top: 4px;
+}
+
+.weatherWidget {
+	min-width: 150px;
+}
+
+.weatherHeader {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	font-size: 0.68rem;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	color: rgba(255, 255, 255, 0.55);
+	margin-bottom: 2px;
+	font-weight: 600;
+}
+
+.weatherMain {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.weatherIcon {
+	font-size: 1.8rem;
+	line-height: 1;
+}
+
+.weatherTemp {
+	font-size: 1.9rem;
+	font-weight: 700;
+	color: #ffffff;
+	line-height: 1.1;
+}
+
+.weatherCondition {
+	font-size: 0.76rem;
+	color: rgba(255, 255, 255, 0.7);
+	margin-top: 4px;
+}
+
+@media (max-width: 900px) {
+	.widgetGroup {
+		display: none;
+	}
+}

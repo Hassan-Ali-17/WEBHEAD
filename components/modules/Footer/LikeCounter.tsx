@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
-import { fetchLikesCount, incrementLikeCount, isSupabaseConfigured } from '../../../services/supabaseClient';
+import {
+	fetchLikesCount,
+	incrementLikeCount,
+	isSupabaseConfigured,
+	subscribeToLikesCount,
+} from '../../../services/supabaseClient';
 import styles from './LikeCounter.module.css';
 
 interface FloatingHeart {
@@ -10,7 +15,7 @@ interface FloatingHeart {
 }
 
 export default function LikeCounter() {
-	const [likes, setLikes] = useState<number>(17);
+	const [likes, setLikes] = useState<number>(39174);
 	const [hasLiked, setHasLiked] = useState<boolean>(false);
 	const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 	const [floatingHearts, setFloatingHearts] = useState<FloatingHeart[]>([]);
@@ -26,21 +31,46 @@ export default function LikeCounter() {
 			if (storedLiked) setHasLiked(true);
 
 			const storedCount = localStorage.getItem('webhead_like_count');
-			if (storedCount && !live) {
+			if (storedCount) {
 				setLikes(parseInt(storedCount, 10));
 			}
 		} catch {
 			// ignore storage errors
 		}
 
-		// If Supabase is configured, fetch live count from site_stats
+		// If Supabase is configured, fetch live count from site_stats & subscribe
 		if (live) {
 			fetchLikesCount().then((res) => {
 				if (res.count > 0) {
 					setLikes(res.count);
 				}
 			});
+
+			const sub = subscribeToLikesCount((newCount) => {
+				setLikes(newCount);
+			});
+
+			return () => {
+				sub?.unsubscribe();
+			};
 		}
+
+		// Cross-tab and cross-component broadcast sync
+		let channel: BroadcastChannel | null = null;
+		try {
+			channel = new BroadcastChannel('webhead_likes_sync');
+			channel.onmessage = (event) => {
+				if (typeof event.data?.likes === 'number') {
+					setLikes(event.data.likes);
+				}
+			};
+		} catch {
+			// ignore
+		}
+
+		return () => {
+			channel?.close();
+		};
 	}, []);
 
 	const handleLike = async (e: React.MouseEvent) => {
@@ -49,7 +79,7 @@ export default function LikeCounter() {
 
 		// Anti-abuse: Cooldown
 		setIsSubmitting(true);
-		setTimeout(() => setIsSubmitting(false), 800);
+		setTimeout(() => setIsSubmitting(false), 600);
 
 		const rect = e.currentTarget.getBoundingClientRect();
 		const newHeart: FloatingHeart = {
@@ -70,9 +100,10 @@ export default function LikeCounter() {
 
 		try {
 			localStorage.setItem('webhead_user_liked', 'true');
-			if (!isLive) {
-				localStorage.setItem('webhead_like_count', nextCount.toString());
-			}
+			localStorage.setItem('webhead_like_count', nextCount.toString());
+			const channel = new BroadcastChannel('webhead_likes_sync');
+			channel.postMessage({ likes: nextCount });
+			channel.close();
 		} catch {
 			// ignore
 		}
@@ -84,6 +115,7 @@ export default function LikeCounter() {
 			}
 		}
 	};
+
 
 	return (
 		<>

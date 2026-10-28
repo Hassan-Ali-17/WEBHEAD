@@ -9,6 +9,18 @@ import styles from './SettingsWindow.module.css';
 
 const WALLPAPERS: WallpaperOption[] = [
 	{
+		id: 'spiderman-miles-shards',
+		name: 'Miles Morales: Shards of the Spider-Verse (Official)',
+		url: '/images/spiderman-miles-shards.jpg',
+		thumbnail: '/images/spiderman-miles-shards.jpg',
+	},
+	{
+		id: 'spiderman-miles-logo',
+		name: 'Spider-Man: Miles White Spider Crest',
+		url: '/images/spiderman-miles-logo.jpg',
+		thumbnail: '/images/spiderman-miles-logo.jpg',
+	},
+	{
 		id: 'city-night',
 		name: 'Brooklyn Skyline at Midnight (Spider-Verse)',
 		url: '/images/wallpaper-spiderverse-city.jpg',
@@ -27,6 +39,7 @@ const WALLPAPERS: WallpaperOption[] = [
 		thumbnail: '/images/wallpaper.webp',
 	},
 ];
+
 
 export default function SettingsWindow() {
 	const { settingsState } = useContext(Context);

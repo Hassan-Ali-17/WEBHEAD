@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import type { DesktopSettings } from '../types';
+import type { AuthenticatedUser, DesktopSettings } from '../types';
 
 type LastPos = {
 	x: number;
@@ -38,7 +38,10 @@ type ContextType = {
 	lastPosState: [LastPos, (newLastPos: LastPos) => void];
 	settingsState: [DesktopSettings, (newSettings: DesktopSettings) => void];
 	activeAppMobileState: [string | null, (app: string | null) => void];
+	authUserState: [AuthenticatedUser | null, (user: AuthenticatedUser | null) => void];
+	lockedState: [boolean, (locked: boolean) => void];
 };
+
 
 const initialPriority: WindowPriority = {
 	fileExplorer: 101,
@@ -108,11 +111,19 @@ const initialLastPos: LastPos = {
 };
 
 const defaultSettings: DesktopSettings = {
-	wallpaper: '/images/wallpaper-spiderverse-city.jpg',
+	wallpaper: '/images/spiderman-miles-shards.jpg',
 	clockFormat: '12h',
 	themeAccent: 'red',
 	reducedMotion: false,
 	soundEnabled: true,
+};
+
+const defaultAuthUser: AuthenticatedUser = {
+	login: 'Hassan-Ali-17',
+	name: 'Hassan Ali Shah',
+	avatarUrl: 'https://github.com/Hassan-Ali-17.png',
+	bio: 'Full-Stack Developer & Spider-Verse Webhead',
+	isVerified: true,
 };
 
 const initialState: ContextType = {
@@ -125,6 +136,8 @@ const initialState: ContextType = {
 	lastPosState: [initialLastPos, () => {}],
 	settingsState: [defaultSettings, () => {}],
 	activeAppMobileState: [null, () => {}],
+	authUserState: [defaultAuthUser, () => {}],
+	lockedState: [true, () => {}],
 };
 
 export const Context = createContext<ContextType>(initialState);
@@ -140,14 +153,28 @@ const ContextProvider = ({ children }: { children: React.ReactNode }) => {
 	const [lastPos, setLastPos] = useState<LastPos>(initialLastPos);
 	const [settings, setSettings] = useState<DesktopSettings>(defaultSettings);
 	const [activeAppMobile, setActiveAppMobile] = useState<string | null>(null);
+	const [authUser, setAuthUser] = useState<AuthenticatedUser | null>(defaultAuthUser);
+	const [isLocked, setIsLocked] = useState<boolean>(true);
 
-	// Load persisted settings from localStorage if available
+	// Load persisted settings & auth from localStorage if available
 	useEffect(() => {
 		try {
 			const saved = localStorage.getItem('webhead_settings');
 			if (saved) {
 				const parsed = JSON.parse(saved);
 				setSettings((prev) => ({ ...prev, ...parsed }));
+			}
+
+			const savedAuth = localStorage.getItem('webhead_auth_user');
+			if (savedAuth) {
+				const parsedAuth = JSON.parse(savedAuth);
+				setAuthUser(parsedAuth);
+			}
+
+			// Check if user explicitly unlocked previously
+			const savedUnlocked = sessionStorage.getItem('webhead_session_unlocked');
+			if (savedUnlocked === 'true') {
+				setIsLocked(false);
 			}
 		} catch {
 			// ignore local storage errors
@@ -160,6 +187,35 @@ const ContextProvider = ({ children }: { children: React.ReactNode }) => {
 			localStorage.setItem('webhead_settings', JSON.stringify(newSettings));
 		} catch {
 			// ignore storage errors
+		}
+	};
+
+	const handleUpdateAuthUser = (user: AuthenticatedUser | null) => {
+		setAuthUser(user);
+		try {
+			if (user) {
+				localStorage.setItem('webhead_auth_user', JSON.stringify(user));
+				localStorage.setItem('webhead_github_username', user.login);
+				localStorage.setItem('webhead_chat_name', user.name);
+				localStorage.setItem('webhead_github_avatar', user.avatarUrl);
+			} else {
+				localStorage.removeItem('webhead_auth_user');
+			}
+		} catch {
+			// ignore storage errors
+		}
+	};
+
+	const handleSetLocked = (locked: boolean) => {
+		setIsLocked(locked);
+		try {
+			if (!locked) {
+				sessionStorage.setItem('webhead_session_unlocked', 'true');
+			} else {
+				sessionStorage.removeItem('webhead_session_unlocked');
+			}
+		} catch {
+			// ignore
 		}
 	};
 
@@ -187,6 +243,8 @@ const ContextProvider = ({ children }: { children: React.ReactNode }) => {
 		lastPosState: [lastPos, setLastPos],
 		settingsState: [settings, handleUpdateSettings],
 		activeAppMobileState: [activeAppMobile, setActiveAppMobile],
+		authUserState: [authUser, handleUpdateAuthUser],
+		lockedState: [isLocked, handleSetLocked],
 	};
 
 	return <Context.Provider value={appContext}>{children}</Context.Provider>;

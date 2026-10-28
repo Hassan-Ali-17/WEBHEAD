@@ -1,5 +1,9 @@
 import Head from 'next/head';
 import Icons from '../components/modules/Icons/Icons';
+import LockScreen from '../components/modules/LockScreen/LockScreen';
+import DesktopHeartWidget from '../components/modules/DesktopWidgets/DesktopHeartWidget';
+import DesktopClockWeather from '../components/modules/DesktopWidgets/DesktopClockWeather';
+import DesktopChatWidget from '../components/modules/DesktopWidgets/DesktopChatWidget';
 import { PORTFOLIO_CONFIG } from '../config/portfolio.config';
 
 export default function Home() {
@@ -28,17 +32,33 @@ export default function Home() {
 					property="og:description"
 					content={`Step into ${owner.name}'s Spider-Verse workstation. Real-time chat, Spotify room, interactive terminal, and showcase.`}
 				/>
-				<meta property="og:image" content="/images/wallpaper-spiderverse-city.jpg" />
+				<meta property="og:image" content="/images/spiderman-miles-shards.jpg" />
 
 				{/* Twitter */}
 				<meta name="twitter:card" content="summary_large_image" />
 				<meta name="twitter:title" content={`${owner.name} — WEBHEAD Portfolio`} />
 				<meta name="twitter:description" content={owner.tagline} />
-				<meta name="twitter:image" content="/images/wallpaper-spiderverse-city.jpg" />
+				<meta name="twitter:image" content="/images/spiderman-miles-shards.jpg" />
 			</Head>
-			<div style={{ height: '100%' }}>
+
+			{/* Windows 11 Authentication Lock Screen */}
+			<LockScreen />
+
+			{/* Desktop Workstation */}
+			<div style={{ position: 'relative', height: '100%', width: '100%', overflow: 'hidden' }}>
+				{/* Desktop Shortcuts (Left Column) */}
 				<Icons />
+
+				{/* Center Big Glowing Heart / Like Counter */}
+				<DesktopHeartWidget />
+
+				{/* Top-Right Time & Weather Widgets */}
+				<DesktopClockWeather />
+
+				{/* Right-Side Realtime Verified Portfolio Chat Panel */}
+				<DesktopChatWidget />
 			</div>
 		</>
 	);
 }
+

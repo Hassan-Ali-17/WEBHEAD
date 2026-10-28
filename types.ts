@@ -44,3 +44,12 @@ export type DesktopSettings = {
 	reducedMotion: boolean;
 	soundEnabled: boolean;
 };
+
+export type AuthenticatedUser = {
+	login: string;
+	name: string;
+	avatarUrl: string;
+	bio?: string | null;
+	isVerified: boolean;
+};
+

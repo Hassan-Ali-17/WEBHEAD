@@ -8,7 +8,7 @@
 }
 
 .sidebar {
-	width: 280px;
+	width: 310px;
 	background: rgba(14, 18, 32, 0.95);
 	border-right: 1px solid rgba(255, 26, 60, 0.2);
 	display: flex;
@@ -19,9 +19,15 @@
 .sidebarHeader {
 	display: flex;
 	align-items: center;
-	gap: 10px;
+	justify-content: space-between;
 	padding: 16px;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.brandGroup {
+	display: flex;
+	align-items: center;
+	gap: 10px;
 }
 
 .spotifyBrandIcon {
@@ -33,6 +39,62 @@
 	font-size: 0.95rem;
 	font-weight: 700;
 	color: #ffffff;
+	margin: 0;
+}
+
+.customInputSection {
+	padding: 12px 14px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+	background: rgba(0, 0, 0, 0.25);
+}
+
+.customInputLabel {
+	font-size: 0.72rem;
+	font-weight: 600;
+	color: #9aa4bf;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	margin-bottom: 6px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.customForm {
+	display: flex;
+	gap: 6px;
+}
+
+.customInput {
+	flex: 1;
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	border-radius: 6px;
+	padding: 6px 10px;
+	color: #ffffff;
+	font-size: 0.75rem;
+	outline: none;
+	transition: border-color 0.15s ease;
+}
+
+.customInput:focus {
+	border-color: #1ed760;
+}
+
+.loadBtn {
+	background: #1ed760;
+	border: none;
+	color: #000;
+	font-size: 0.75rem;
+	font-weight: 700;
+	padding: 6px 12px;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: background 0.15s ease;
+}
+
+.loadBtn:hover {
+	background: #1fdf64;
 }
 
 .playlistList {
@@ -64,9 +126,9 @@
 }
 
 .activeItem {
-	background: rgba(0, 240, 255, 0.15) !important;
-	border-color: #00f0ff !important;
-	box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+	background: rgba(30, 215, 96, 0.15) !important;
+	border-color: #1ed760 !important;
+	box-shadow: 0 0 12px rgba(30, 215, 96, 0.25);
 }
 
 .discIcon {
@@ -76,7 +138,7 @@
 }
 
 .activeItem .discIcon {
-	color: #00f0ff;
+	color: #1ed760;
 }
 
 .spinning {
@@ -113,8 +175,29 @@
 }
 
 .sidebarFooter {
-	padding: 14px;
+	padding: 12px 14px;
 	border-top: 1px solid rgba(255, 255, 255, 0.08);
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.hassanProfileBanner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: rgba(30, 215, 96, 0.1);
+	border: 1px solid rgba(30, 215, 96, 0.25);
+	padding: 8px 12px;
+	border-radius: 8px;
+	font-size: 0.76rem;
+	color: #1ed760;
+	text-decoration: none;
+	transition: background 0.15s ease;
+}
+
+.hassanProfileBanner:hover {
+	background: rgba(30, 215, 96, 0.2);
 }
 
 .externalLink {
@@ -128,6 +211,7 @@
 	font-size: 0.8rem;
 	padding: 8px 12px;
 	border-radius: 20px;
+	text-decoration: none;
 	transition: all 0.15s ease;
 }
 
@@ -142,6 +226,26 @@
 	position: relative;
 	height: 100%;
 	background: #000;
+	display: flex;
+	flex-direction: column;
+}
+
+.apiKeyNoteBanner {
+	background: rgba(30, 215, 96, 0.08);
+	border-bottom: 1px solid rgba(30, 215, 96, 0.2);
+	padding: 6px 16px;
+	font-size: 0.72rem;
+	color: #72f79f;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.playerFrameWrapper {
+	flex: 1;
+	position: relative;
+	width: 100%;
+	height: 100%;
 }
 
 .playerLoading {
@@ -164,8 +268,8 @@
 .loadingSpinner {
 	width: 32px;
 	height: 32px;
-	border: 3px solid rgba(0, 240, 255, 0.2);
-	border-top-color: #00f0ff;
+	border: 3px solid rgba(30, 215, 96, 0.2);
+	border-top-color: #1ed760;
 	border-radius: 50%;
 	animation: spinDisc 0.8s linear infinite;
 }
@@ -189,12 +293,12 @@
 
 	.sidebar {
 		width: 100%;
-		height: 180px;
+		height: 220px;
 		border-right: none;
 		border-bottom: 1px solid rgba(255, 26, 60, 0.2);
 	}
 
 	.playerArea {
-		height: calc(100% - 180px);
+		height: calc(100% - 220px);
 	}
 }

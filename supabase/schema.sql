@@ -83,5 +83,7 @@ END;
 $$;
 
 -- 4. Enable Supabase Realtime Publication
--- Enables live WebSocket broadcasts when messages are inserted
+-- Enables live WebSocket broadcasts when messages are inserted or stats are updated
 ALTER PUBLICATION supabase_realtime ADD TABLE public.messages;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.site_stats;
+

@@ -1,11 +1,12 @@
 import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { AiOutlineExclamationCircle, AiOutlineSend } from 'react-icons/ai';
 import { BiRefresh } from 'react-icons/bi';
 import { BsCheckCircle } from 'react-icons/bs';
 import { FaUserAstronaut } from 'react-icons/fa';
 import { FiCheckCircle, FiExternalLink, FiGithub, FiLogOut } from 'react-icons/fi';
 import DraggableWindow from '../../utils/DraggableWindow/DraggableWindow';
+import { Context } from '../../../context/ContextProvider';
 import {
 	ChatMessage,
 	fetchRecentMessages,
@@ -90,6 +91,9 @@ async function validateGitHubUser(rawUsername: string): Promise<{ profile?: GitH
 }
 
 export default function ChatWindow() {
+	const { authUserState } = useContext(Context);
+	const [authUser] = authUserState;
+
 	const [messages, setMessages] = useState<ChatMessage[]>([]);
 	const [newMessage, setNewMessage] = useState('');
 	const [githubInput, setGithubInput] = useState('');
@@ -106,6 +110,22 @@ export default function ChatWindow() {
 	const [reportedIds, setReportedIds] = useState<string[]>([]);
 	const [onlinePresence, setOnlinePresence] = useState(3);
 	const messagesEndRef = useRef<HTMLDivElement>(null);
+
+	// Automatically populate and authenticate with Lock Screen identity
+	useEffect(() => {
+		if (authUser && authUser.login) {
+			setGithubInput(authUser.login);
+			setDisplayName(authUser.name || authUser.login);
+			setGithubUser({
+				login: authUser.login,
+				name: authUser.name || authUser.login,
+				avatar_url: authUser.avatarUrl,
+				html_url: `https://github.com/${authUser.login}`,
+				bio: authUser.bio || null,
+			});
+			setHasJoined(true);
+		}
+	}, [authUser]);
 
 	// Load local storage visitor profile
 	useEffect(() => {
@@ -134,6 +154,7 @@ export default function ChatWindow() {
 			// ignore local storage errors
 		}
 	}, []);
+
 
 	// Initialize messages & Realtime subscription
 	useEffect(() => {
@@ -349,8 +370,9 @@ export default function ChatWindow() {
 	return (
 		<DraggableWindow
 			windowName="chat"
-			topTitle="Spider-Verse Multi-Visitor Public Chat"
+			topTitle="Spider-Verse Verified Developer Chat"
 			topIcon={
+
 				<Image
 					src="/icons/discord/discord.png"
 					width={18}

@@ -94,8 +94,9 @@ function Icons() {
 							width={40}
 							height={40}
 						/>
-						<p>Public Chat</p>
+						<p>Dev Chat</p>
 					</Link>
+
 
 					<Link
 						href={'/spotify'}

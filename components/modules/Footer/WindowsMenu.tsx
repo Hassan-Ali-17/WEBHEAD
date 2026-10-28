@@ -1,10 +1,11 @@
 import { motion } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useContext } from 'react';
 import { AiOutlinePoweroff } from 'react-icons/ai';
 import { IoIosArrowForward } from 'react-icons/io';
 import { VscSearch } from 'react-icons/vsc';
+import { Context } from '../../../context/ContextProvider';
 import { PORTFOLIO_CONFIG } from '../../../config/portfolio.config';
 import styles from './WindowsMenu.module.css';
 
@@ -37,9 +38,9 @@ const slideVerticalAnimation = {
 const APPS_LIST = [
 	{ name: 'About Hassan', href: '/about', icon: '/images/webhead-avatar.jpg', isRound: true },
 	{ name: 'Projects Showcase', href: '/projects', icon: '/icons/folder/folder.png' },
-	{ name: 'Public Chat', href: '/chat', icon: '/icons/discord/discord.png' },
+	{ name: 'Verified Dev Chat', href: '/chat', icon: '/icons/discord/discord.png' },
 	{ name: 'Spotify Music', href: '/spotify', icon: '/icons/spotify/spotify.png' },
-	{ name: 'Discord', href: '/discord', icon: '/icons/discord/discord.png' },
+	{ name: 'Discord (BladeX)', href: '/discord', icon: '/icons/discord/discord.png' },
 	{ name: 'Resume (PDF)', href: '/resume', icon: '/icons/notes/notes.png' },
 	{ name: 'Weather Station', href: '/weather', icon: '/icons/pictures/pictures.png' },
 	{ name: 'Settings', href: '/settings', icon: '/icons/shortcut/shortcut.png' },
@@ -50,6 +51,10 @@ const APPS_LIST = [
 function WindowsMenu({ winMenu, handleWinMenu }: Props) {
 	const node = useRef<HTMLDivElement>(null);
 	const [searchQuery, setSearchQuery] = useState('');
+	const { authUserState, lockedState } = useContext(Context);
+	const [authUser] = authUserState;
+	const [, setIsLocked] = lockedState;
+
 
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
@@ -212,28 +217,43 @@ function WindowsMenu({ winMenu, handleWinMenu }: Props) {
 						className={styles.userProfile}
 					>
 						<Image
-							src="/images/webhead-avatar.jpg"
-							alt={PORTFOLIO_CONFIG.owner.name}
+							src={authUser?.avatarUrl || '/images/webhead-avatar.jpg'}
+							alt={authUser?.name || PORTFOLIO_CONFIG.owner.name}
 							width={34}
 							height={34}
 							style={{ borderRadius: '50%', border: '1.5px solid #ff1a3c' }}
+							unoptimized
 						/>
 						<div className={styles.userInfo}>
-							<p className={styles.userName}>{PORTFOLIO_CONFIG.owner.name}</p>
-							<span className={styles.userRole}>Earth-1610 // Online</span>
+							<p className={styles.userName}>{authUser?.name || PORTFOLIO_CONFIG.owner.name}</p>
+							<span className={styles.userRole}>
+								{authUser ? `@${authUser.login}` : 'Earth-1610 // Online'}
+							</span>
 						</div>
 					</Link>
-					<button
-						className={styles.powerButton}
-						onClick={() => {
-							if (window.confirm('Restart Spider-Verse Workstation?')) {
-								window.location.href = '/';
-							}
-						}}
-						title="Restart Workstation"
-					>
-						<AiOutlinePoweroff />
-					</button>
+					<div style={{ display: 'flex', gap: '8px' }}>
+						<button
+							className={styles.powerButton}
+							onClick={() => {
+								setIsLocked(true);
+								handleWinMenu();
+							}}
+							title="Lock Screen"
+						>
+							🔒
+						</button>
+						<button
+							className={styles.powerButton}
+							onClick={() => {
+								if (window.confirm('Restart Spider-Verse Workstation?')) {
+									window.location.href = '/';
+								}
+							}}
+							title="Restart Workstation"
+						>
+							<AiOutlinePoweroff />
+						</button>
+					</div>
 				</div>
 				<div className={styles.winMenuBg} />
 			</div>

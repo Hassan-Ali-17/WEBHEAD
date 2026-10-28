@@ -169,3 +169,28 @@ export const incrementLikeCount = async (): Promise<{ count: number; error: stri
 		return { count: 0, error: 'Failed to increment like' };
 	}
 };
+
+// Real-time subscription for global likes count
+export const subscribeToLikesCount = (
+	onUpdate: (count: number) => void,
+): RealtimeChannel | null => {
+	const client = getSupabase();
+	if (!client) return null;
+
+	const channel = client
+		.channel('public:site_stats')
+		.on(
+			'postgres_changes',
+			{ event: '*', schema: 'public', table: 'site_stats', filter: 'id=eq.heart_likes' },
+			(payload) => {
+				const rec = payload.new as { count?: number } | undefined;
+				if (rec && typeof rec.count !== 'undefined') {
+					onUpdate(Number(rec.count));
+				}
+			},
+		)
+		.subscribe();
+
+	return channel;
+};
+

@@ -1,0 +1,136 @@
+.container {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	z-index: 5;
+	pointer-events: auto;
+	user-select: none;
+}
+
+.heartCard {
+	position: relative;
+	width: 170px;
+	height: 170px;
+	border-radius: 50%;
+	background: radial-gradient(circle, rgba(255, 26, 60, 0.45) 0%, rgba(220, 20, 60, 0.2) 65%, rgba(0, 0, 0, 0.3) 100%);
+	backdrop-filter: blur(16px);
+	-webkit-backdrop-filter: blur(16px);
+	border: 2px solid rgba(255, 77, 109, 0.65);
+	box-shadow: 0 0 45px rgba(255, 26, 60, 0.5), inset 0 0 25px rgba(255, 77, 109, 0.4);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+	outline: none;
+}
+
+.heartCard:hover {
+	transform: scale(1.08);
+	box-shadow: 0 0 65px rgba(255, 26, 60, 0.75), inset 0 0 35px rgba(255, 77, 109, 0.6);
+	border-color: #ff4d6d;
+}
+
+.heartCard:active,
+.heartCard.pulsing {
+	transform: scale(0.94);
+	animation: pulseGlow 0.4s ease-out;
+}
+
+@keyframes pulseGlow {
+	0% {
+		box-shadow: 0 0 30px rgba(255, 26, 60, 0.5);
+	}
+	50% {
+		box-shadow: 0 0 90px rgba(255, 26, 60, 0.95), 0 0 120px rgba(255, 77, 109, 0.6);
+	}
+	100% {
+		box-shadow: 0 0 45px rgba(255, 26, 60, 0.5);
+	}
+}
+
+.heartIcon {
+	font-size: 3.4rem;
+	color: #ffffff;
+	filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.4));
+	transition: transform 0.2s ease;
+	line-height: 1;
+}
+
+.heartCard:hover .heartIcon {
+	transform: scale(1.12);
+}
+
+.likeCount {
+	font-size: 1.55rem;
+	font-weight: 800;
+	color: #ffffff;
+	letter-spacing: -0.5px;
+	text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+	margin-top: 4px;
+	font-family: inherit;
+}
+
+.floatingParticle {
+	position: fixed;
+	pointer-events: none;
+	user-select: none;
+	font-size: 1.5rem;
+	z-index: 9999;
+	animation: floatRise 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes floatRise {
+	0% {
+		opacity: 1;
+		transform: translate(-50%, 0) scale(0.8) rotate(0deg);
+	}
+	50% {
+		opacity: 0.9;
+		transform: translate(calc(-50% + var(--rand-x, 0px)), -90px) scale(1.4) rotate(var(--rand-rot, 15deg));
+	}
+	100% {
+		opacity: 0;
+		transform: translate(calc(-50% + var(--rand-x, 0px)), -180px) scale(1.8) rotate(var(--rand-rot, 30deg));
+	}
+}
+
+.liveTag {
+	position: absolute;
+	bottom: -28px;
+	font-size: 0.72rem;
+	font-weight: 600;
+	color: rgba(255, 255, 255, 0.7);
+	background: rgba(0, 0, 0, 0.45);
+	padding: 3px 10px;
+	border-radius: 12px;
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	white-space: nowrap;
+}
+
+.liveIndicatorDot {
+	width: 6px;
+	height: 6px;
+	background: #00f0ff;
+	border-radius: 50%;
+	box-shadow: 0 0 6px #00f0ff;
+	animation: blinkDot 1.6s infinite;
+}
+
+@keyframes blinkDot {
+	0%, 100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.3;
+	}
+}

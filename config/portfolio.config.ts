@@ -88,6 +88,8 @@ export const PORTFOLIO_CONFIG = {
 	] as ProjectItem[],
 
 	spotify: {
+		username: 'Hassanaalipnd',
+		userProfileUrl: 'https://open.spotify.com/user/Hassanaalipnd',
 		defaultPlaylistId: '37i9dQZF1DX1qNS1A130RF',
 		playlists: [
 			{
@@ -105,6 +107,13 @@ export const PORTFOLIO_CONFIG = {
 				spotifyUrl: 'https://open.spotify.com/playlist/37i9dQZF1DWZo5FvVq0v5D',
 			},
 			{
+				name: 'Hassan\'s Spotify Profile',
+				description: 'Listen directly on @Hassanaalipnd Spotify account',
+				playlistId: '37i9dQZF1DXdLEN7aqioXM',
+				embedUrl: 'https://open.spotify.com/embed/playlist/37i9dQZF1DXdLEN7aqioXM?utm_source=generator&theme=0',
+				spotifyUrl: 'https://open.spotify.com/user/Hassanaalipnd',
+			},
+			{
 				name: 'Cyberpunk Lo-Fi Web Beats',
 				description: 'Midnight coding vibes, chill synthwave, and chill beats',
 				playlistId: '37i9dQZF1DXdLEN7aqioXM',
@@ -115,14 +124,27 @@ export const PORTFOLIO_CONFIG = {
 	},
 
 	discord: {
-		username: 'hassanali',
-		status: 'Online // Slinging Code Across Earth-1610',
-		avatarUrl: '/images/webhead-avatar.jpg',
-		profileUrl: 'https://discord.com/users/hassanali',
+		displayName: 'BladeX⚔️',
+		username: 'hassan02485',
+		pronouns: 'He/him',
+		statusBubble: 'What are you currently obsessed with?',
+		bioLines: [
+			'🎮 Gamer by passion',
+			'💀 No mercy in ranked',
+			'⚡ BladeX.exe running',
+		],
+		memberSince: '5 Jan 2024',
+		connections: {
+			github: 'Hassan-Ali-17',
+			spotify: 'Hassanaalipnd',
+		},
+		avatarUrl: '/images/discord-profile.png',
+		profileUrl: 'https://discord.com/users/hassan02485',
 		serverName: 'Spider-Verse Dev Den',
 		serverInviteUrl: 'https://discord.gg/spiderverse-dev',
-		widgetId: '', // Optional discord server ID for official widget
+		widgetId: '',
 	},
+
 
 	weather: {
 		defaultCity: 'Brooklyn, NY',
