@@ -31,13 +31,12 @@ export default function DiscordWindow() {
 						<div className={styles.avatarContainer}>
 							<div className={styles.avatarWrapper}>
 								<Image
-									src="/images/discord-profile.png"
+									src="/images/discord-avatar-og.png"
 									alt={discord.displayName}
 									width={92}
 									height={92}
 									className={styles.avatarImg}
 									unoptimized
-									style={{ objectPosition: '15% 18%', transform: 'scale(1.8)' }}
 								/>
 							</div>
 							<span className={styles.onlineBadge} />

@@ -90,8 +90,15 @@ export const PORTFOLIO_CONFIG = {
 	spotify: {
 		username: 'Hassanaalipnd',
 		userProfileUrl: 'https://open.spotify.com/user/Hassanaalipnd',
-		defaultPlaylistId: '37i9dQZF1DX1qNS1A130RF',
+		defaultPlaylistId: '2ZBuoBQDfhL4qTbHRuh8GW',
 		playlists: [
+			{
+				name: 'Hassan\'s Official Playlist',
+				description: 'Curated Webhead tracks by @Hassanaalipnd',
+				playlistId: '2ZBuoBQDfhL4qTbHRuh8GW',
+				embedUrl: 'https://open.spotify.com/embed/playlist/2ZBuoBQDfhL4qTbHRuh8GW?utm_source=generator&theme=0',
+				spotifyUrl: 'https://open.spotify.com/playlist/2ZBuoBQDfhL4qTbHRuh8GW',
+			},
 			{
 				name: 'Into the Spider-Verse OST',
 				description: 'Official Soundtrack — Sunflower, What\'s Up Danger, Way Up',
@@ -109,16 +116,9 @@ export const PORTFOLIO_CONFIG = {
 			{
 				name: 'Hassan\'s Spotify Profile',
 				description: 'Listen directly on @Hassanaalipnd Spotify account',
-				playlistId: '37i9dQZF1DXdLEN7aqioXM',
-				embedUrl: 'https://open.spotify.com/embed/playlist/37i9dQZF1DXdLEN7aqioXM?utm_source=generator&theme=0',
+				playlistId: 'profile',
+				embedUrl: 'https://open.spotify.com/embed/playlist/2ZBuoBQDfhL4qTbHRuh8GW?utm_source=generator&theme=0',
 				spotifyUrl: 'https://open.spotify.com/user/Hassanaalipnd',
-			},
-			{
-				name: 'Cyberpunk Lo-Fi Web Beats',
-				description: 'Midnight coding vibes, chill synthwave, and chill beats',
-				playlistId: '37i9dQZF1DXdLEN7aqioXM',
-				embedUrl: 'https://open.spotify.com/embed/playlist/37i9dQZF1DXdLEN7aqioXM?utm_source=generator&theme=0',
-				spotifyUrl: 'https://open.spotify.com/playlist/37i9dQZF1DXdLEN7aqioXM',
 			},
 		] as PlaylistConfig[],
 	},
@@ -138,12 +138,13 @@ export const PORTFOLIO_CONFIG = {
 			github: 'Hassan-Ali-17',
 			spotify: 'Hassanaalipnd',
 		},
-		avatarUrl: '/images/discord-profile.png',
+		avatarUrl: '/images/discord-avatar-og.png',
 		profileUrl: 'https://discord.com/users/hassan02485',
 		serverName: 'Spider-Verse Dev Den',
 		serverInviteUrl: 'https://discord.gg/spiderverse-dev',
 		widgetId: '',
 	},
+
 
 
 	weather: {
