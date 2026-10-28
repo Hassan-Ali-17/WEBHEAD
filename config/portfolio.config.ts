@@ -148,10 +148,12 @@ export const PORTFOLIO_CONFIG = {
 
 
 	weather: {
-		defaultCity: 'Brooklyn, NY',
-		defaultLatitude: 40.6782,
-		defaultLongitude: -73.9442,
+		defaultCity: 'Lahore, Pakistan',
+		defaultLatitude: 31.5204,
+		defaultLongitude: 74.3587,
+		timeZone: 'Asia/Karachi',
 	},
+
 
 	supabase: {
 		url: process.env.NEXT_PUBLIC_SUPABASE_URL || '',

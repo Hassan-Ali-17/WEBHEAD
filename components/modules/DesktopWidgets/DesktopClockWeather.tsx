@@ -7,21 +7,20 @@ export default function DesktopClockWeather() {
 	const { settingsState } = useContext(Context);
 	const [settings] = settingsState;
 
-	const [timeStr, setTimeStr] = useState('12:28');
+	const [timeStr, setTimeStr] = useState('08:00');
 	const [dateStr, setDateStr] = useState('Wednesday 28 October');
 	const [weather, setWeather] = useState<WeatherData>({
-		city: 'Tokyo, Japan',
-		temperature: 24,
+		city: 'Lahore, Pakistan',
+		temperature: 28,
 		condition: 'Clear Sky',
-		humidity: 48,
-		windSpeed: 12,
+		humidity: 45,
+		windSpeed: 8,
 		isDay: true,
-		time: '12:28',
-		highTemp: 26,
-		lowTemp: 18,
+		time: '20:00',
+		highTemp: 31,
+		lowTemp: 20,
 		code: 0,
 	});
-
 
 	useEffect(() => {
 		const updateTime = () => {
@@ -31,6 +30,7 @@ export default function DesktopClockWeather() {
 					hour: '2-digit',
 					minute: '2-digit',
 					hour12: settings.clockFormat === '12h',
+					timeZone: 'Asia/Karachi',
 				}),
 			);
 			setDateStr(
@@ -38,6 +38,7 @@ export default function DesktopClockWeather() {
 					weekday: 'short',
 					day: 'numeric',
 					month: 'short',
+					timeZone: 'Asia/Karachi',
 				}),
 			);
 		};
@@ -48,7 +49,7 @@ export default function DesktopClockWeather() {
 	}, [settings.clockFormat]);
 
 	useEffect(() => {
-		fetchWeatherForCoords(35.6762, 139.6503, 'Tokyo, Japan').then((res) => {
+		fetchWeatherForCoords(31.5204, 74.3587, 'Lahore, Pakistan').then((res) => {
 			if (res.data) setWeather(res.data);
 		});
 	}, []);
@@ -57,10 +58,12 @@ export default function DesktopClockWeather() {
 		<div className={styles.widgetGroup}>
 			{/* Time Widget */}
 			<div className={`${styles.widgetCard} ${styles.clockWidget}`}>
-				<span className={styles.clockHeader}>JAPAN STANDARD TIME</span>
-				<div className={styles.clockTime}>{timeStr}</div>
-				<div className={styles.clockDate}>{dateStr}</div>
+				<span className={styles.clockHeader}>PAKISTAN STANDARD TIME (PKT)</span>
+				<div className={styles.clockTime} suppressHydrationWarning>{timeStr}</div>
+				<div className={styles.clockDate} suppressHydrationWarning>{dateStr}</div>
 			</div>
+
+
 
 			{/* Weather Widget */}
 			<div className={`${styles.widgetCard} ${styles.weatherWidget}`}>

@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import Icons from '../components/modules/Icons/Icons';
 import LockScreen from '../components/modules/LockScreen/LockScreen';
-import DesktopHeartWidget from '../components/modules/DesktopWidgets/DesktopHeartWidget';
 import DesktopClockWeather from '../components/modules/DesktopWidgets/DesktopClockWeather';
 import DesktopChatWidget from '../components/modules/DesktopWidgets/DesktopChatWidget';
 import { PORTFOLIO_CONFIG } from '../config/portfolio.config';
@@ -49,9 +48,6 @@ export default function Home() {
 				{/* Desktop Shortcuts (Left Column) */}
 				<Icons />
 
-				{/* Center Big Glowing Heart / Like Counter */}
-				<DesktopHeartWidget />
-
 				{/* Top-Right Time & Weather Widgets */}
 				<DesktopClockWeather />
 
@@ -61,4 +57,5 @@ export default function Home() {
 		</>
 	);
 }
+
 

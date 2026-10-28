@@ -51,6 +51,7 @@ export default function DesktopChatWidget() {
 	const { authUserState } = useContext(Context);
 	const [authUser, setAuthUser] = authUserState;
 
+	const [isMounted, setIsMounted] = useState(false);
 	const [messages, setMessages] = useState<ChatMessage[]>(DEMO_SEED_MESSAGES);
 	const [inputText, setInputText] = useState('');
 	const [verifyHandle, setVerifyHandle] = useState('');
@@ -62,7 +63,9 @@ export default function DesktopChatWidget() {
 	};
 
 	useEffect(() => {
+		setIsMounted(true);
 		const live = isSupabaseConfigured();
+
 
 		// Load stored local messages or seed
 		try {
@@ -199,6 +202,7 @@ export default function DesktopChatWidget() {
 	};
 
 	const formatTime = (iso: string) => {
+		if (!isMounted) return '';
 		try {
 			const d = new Date(iso);
 			return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -243,13 +247,16 @@ export default function DesktopChatWidget() {
 							<div className={styles.messageContent}>
 								<div className={styles.messageMeta}>
 									<span className={styles.authorName}>{msg.display_name}</span>
-									<span className={styles.messageTime}>{formatTime(msg.created_at)}</span>
+									<span className={styles.messageTime} suppressHydrationWarning>
+										{formatTime(msg.created_at)}
+									</span>
 								</div>
 								<p className={styles.messageText}>{msg.content}</p>
 							</div>
 						</div>
 					);
 				})}
+
 				<div ref={messagesEndRef} />
 			</div>
 

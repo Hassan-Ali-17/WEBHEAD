@@ -38,9 +38,10 @@ function Footer() {
 					hour: '2-digit',
 					minute: '2-digit',
 					hour12: is12Hour,
+					timeZone: 'Asia/Karachi',
 				}),
 			);
-			setDateStr(now.toLocaleDateString(navigator.language));
+			setDateStr(now.toLocaleDateString(navigator.language, { timeZone: 'Asia/Karachi' }));
 		};
 
 		updateTime();
@@ -48,12 +49,13 @@ function Footer() {
 		return () => clearInterval(interval);
 	}, [settings.clockFormat]);
 
-	// Fetch quick weather for Brooklyn / default
+	// Fetch quick weather for Lahore, Pakistan
 	useEffect(() => {
-		fetchWeatherForCoords(40.6782, -73.9442, 'Brooklyn').then((res) => {
+		fetchWeatherForCoords(31.5204, 74.3587, 'Lahore').then((res) => {
 			if (res.data) setWeather(res.data);
 		});
 	}, []);
+
 
 	return (
 		<>

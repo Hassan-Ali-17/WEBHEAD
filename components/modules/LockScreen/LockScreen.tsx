@@ -42,6 +42,7 @@ export default function LockScreen({ onUnlock }: LockScreenProps) {
 					hour: '2-digit',
 					minute: '2-digit',
 					hour12: settings.clockFormat === '12h',
+					timeZone: 'Asia/Karachi',
 				}),
 			);
 			setDateStr(
@@ -49,6 +50,7 @@ export default function LockScreen({ onUnlock }: LockScreenProps) {
 					weekday: 'long',
 					day: 'numeric',
 					month: 'long',
+					timeZone: 'Asia/Karachi',
 				}),
 			);
 		};
@@ -146,13 +148,15 @@ export default function LockScreen({ onUnlock }: LockScreenProps) {
 				{/* Top Status Bar */}
 				<div className={styles.topBar}>
 					<div className={styles.locationInfo}>
-						<span>🕷️ Earth-1610 // Tokyo, Japan</span>
+						<span>🕷️ Earth-1610 // Lahore, Pakistan</span>
 					</div>
 
 					<div className={styles.topClockArea}>
-						<div className={styles.topTime}>{timeStr}</div>
-						<div className={styles.topDate}>{dateStr}</div>
+						<div className={styles.topTime} suppressHydrationWarning>{timeStr}</div>
+						<div className={styles.topDate} suppressHydrationWarning>{dateStr}</div>
 					</div>
+
+
 				</div>
 
 				{/* Center Authentication Card */}
