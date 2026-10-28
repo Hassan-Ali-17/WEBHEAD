@@ -54,7 +54,7 @@ function Icons() {
 			/>
 			<div className={`elements ${styles.container}`}>
 				<div className={`selecto-area ${styles.wrapper}`} id="selecto1">
-					{/* Row 1: 3 Icons Horizontal */}
+					{/* Row 1: 4 Icons Horizontal (Col 1-4) */}
 					<div className={styles.iconRow}>
 						<Link
 							href={'/about'}
@@ -86,22 +86,19 @@ function Icons() {
 						</Link>
 
 						<Link
-							href={'/chat'}
+							href={'/terminal'}
 							className={`${styles.item} selectoItem`}
 							draggable={false}
 						>
 							<Image
-								src="/icons/discord/discord.png"
-								alt="Live Chat"
+								src="/icons/terminal/terminal.png"
+								alt="Terminal"
 								width={40}
 								height={40}
 							/>
-							<p>Dev Chat</p>
+							<p>Terminal</p>
 						</Link>
-					</div>
 
-					{/* Row 2: 2 Icons Horizontal */}
-					<div className={styles.iconRow}>
 						<Link
 							href={'/spotify'}
 							className={`${styles.item} selectoItem`}
@@ -114,6 +111,23 @@ function Icons() {
 								height={40}
 							/>
 							<p>Music Room</p>
+						</Link>
+					</div>
+
+					{/* Row 2: 3 Icons Horizontal (Col 1-3) */}
+					<div className={styles.iconRow}>
+						<Link
+							href={'/chat'}
+							className={`${styles.item} selectoItem`}
+							draggable={false}
+						>
+							<Image
+								src="/icons/discord/discord.png"
+								alt="Live Chat"
+								width={40}
+								height={40}
+							/>
+							<p>Dev Chat</p>
 						</Link>
 
 						<Link
@@ -129,72 +143,7 @@ function Icons() {
 							/>
 							<p>Discord</p>
 						</Link>
-					</div>
 
-					{/* Row 3: 1 Icon */}
-					<div className={styles.iconRow}>
-						<Link
-							href={'/resume'}
-							className={`${styles.item} selectoItem`}
-							draggable={false}
-						>
-							<Image
-								src="/icons/notes/notes.png"
-								alt="Resume"
-								width={40}
-								height={40}
-							/>
-							<p>Resume</p>
-						</Link>
-					</div>
-
-					{/* Row 4: 3 Icons Horizontal */}
-					<div className={styles.iconRow}>
-						<Link
-							href={'/weather'}
-							className={`${styles.item} selectoItem`}
-							draggable={false}
-						>
-							<Image
-								src="/icons/pictures/pictures.png"
-								alt="Weather"
-								width={40}
-								height={40}
-							/>
-							<p>Weather</p>
-						</Link>
-
-						<Link
-							href={'/settings'}
-							className={`${styles.item} selectoItem`}
-							draggable={false}
-						>
-							<Image
-								src="/icons/shortcut/shortcut.png"
-								alt="Settings"
-								width={40}
-								height={40}
-							/>
-							<p>Settings</p>
-						</Link>
-
-						<Link
-							href={'/terminal'}
-							className={`${styles.item} selectoItem`}
-							draggable={false}
-						>
-							<Image
-								src="/icons/terminal/terminal.png"
-								alt="Terminal"
-								width={40}
-								height={40}
-							/>
-							<p>Terminal</p>
-						</Link>
-					</div>
-
-					{/* Row 5: 2 Icons Horizontal */}
-					<div className={styles.iconRow}>
 						<Link
 							href={'/explorer/quick-access'}
 							className={`${styles.item} selectoItem`}
@@ -208,7 +157,10 @@ function Icons() {
 							/>
 							<p>File Explorer</p>
 						</Link>
+					</div>
 
+					{/* Row 3: 2 Icons Horizontal (Col 1-2) */}
+					<div className={styles.iconRow}>
 						<div className={`${styles.item} selectoItem recycleBin`}>
 							{deleted ? (
 								<Image
@@ -227,6 +179,37 @@ function Icons() {
 							)}
 							<p>Recycle Bin</p>
 						</div>
+
+						<Link
+							href={'/settings'}
+							className={`${styles.item} selectoItem`}
+							draggable={false}
+						>
+							<Image
+								src="/icons/shortcut/shortcut.png"
+								alt="Settings"
+								width={40}
+								height={40}
+							/>
+							<p>Settings</p>
+						</Link>
+					</div>
+
+					{/* Row 4: 1 Icon Horizontal (Col 1) */}
+					<div className={styles.iconRow}>
+						<Link
+							href={'/resume'}
+							className={`${styles.item} selectoItem`}
+							draggable={false}
+						>
+							<Image
+								src="/icons/notes/notes.png"
+								alt="Resume"
+								width={40}
+								height={40}
+							/>
+							<p>Resume</p>
+						</Link>
 					</div>
 				</div>
 			</div>
