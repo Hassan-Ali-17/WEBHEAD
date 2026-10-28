@@ -114,25 +114,31 @@ function Pictures({ data }: { data: MediaType[] }) {
 }
 
 export async function getStaticProps() {
-	const res = await fetch(
-		`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image?max_results=100`,
-		{
-			headers: {
-				Authorization: `Basic ${Buffer.from(
-					process.env.CLOUDINARY_API_KEY +
-						':' +
-						process.env.CLOUDINARY_API_SECRET,
-				).toString('base64')}`,
-			},
-		},
-	).then((res) => res.json());
+	let resources: MediaType[] = [];
+	try {
+		if (process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY) {
+			const res = await fetch(
+				`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image?max_results=100`,
+				{
+					headers: {
+						Authorization: `Basic ${Buffer.from(
+							process.env.CLOUDINARY_API_KEY +
+								':' +
+								process.env.CLOUDINARY_API_SECRET,
+						).toString('base64')}`,
+					},
+					signal: AbortSignal.timeout(4000),
+				},
+			).then((res) => res.json());
 
-	// Cloudinary returns an error object instead of `resources` when the
-	// credentials are missing or rejected; degrade to an empty folder rather
-	// than failing the whole build.
-	const resources: MediaType[] = Array.isArray(res?.resources)
-		? res.resources
-		: [];
+			if (Array.isArray(res?.resources)) {
+				resources = res.resources;
+			}
+		}
+	} catch {
+		// Cloudinary network error or missing credentials; degrade to empty list
+		resources = [];
+	}
 
 	const data = resources.map((image: MediaType) => {
 		return {

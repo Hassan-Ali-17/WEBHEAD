@@ -7,7 +7,7 @@ export default function ProjectsPage() {
 	return (
 		<>
 			<Head>
-				<title>{PORTFOLIO_CONFIG.owner.name} — Spider-Verse Projects</title>
+				<title>{`${PORTFOLIO_CONFIG.owner.name} — Spider-Verse Projects`}</title>
 				<meta
 					name="description"
 					content="Explore software projects, realtime systems, and open-source repositories engineered by Hassan Ali Shah."

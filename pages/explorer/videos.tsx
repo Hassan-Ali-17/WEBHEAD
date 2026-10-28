@@ -113,23 +113,31 @@ function Videos({ data }: { data: MediaType[] }) {
 }
 
 export async function getStaticProps() {
-	const res = await fetch(
-		`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/video?max_results=100`,
-		{
-			headers: {
-				Authorization: `Basic ${Buffer.from(
-					process.env.CLOUDINARY_API_KEY +
-						':' +
-						process.env.CLOUDINARY_API_SECRET,
-				).toString('base64')}`,
-			},
-		},
-	).then((res) => res.json());
+	let resources: MediaType[] = [];
+	try {
+		if (process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY) {
+			const res = await fetch(
+				`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/video?max_results=100`,
+				{
+					headers: {
+						Authorization: `Basic ${Buffer.from(
+							process.env.CLOUDINARY_API_KEY +
+								':' +
+								process.env.CLOUDINARY_API_SECRET,
+						).toString('base64')}`,
+					},
+					signal: AbortSignal.timeout(4000),
+				},
+			).then((res) => res.json());
 
-	// See the note in pictures.tsx: guard against an error response.
-	const resources: MediaType[] = Array.isArray(res?.resources)
-		? res.resources
-		: [];
+			if (Array.isArray(res?.resources)) {
+				resources = res.resources;
+			}
+		}
+	} catch {
+		// Cloudinary network error or missing credentials; degrade to empty list
+		resources = [];
+	}
 
 	const data = resources.map((video: MediaType) => {
 		return {

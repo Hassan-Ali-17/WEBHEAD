@@ -1,0 +1,746 @@
+.windowContainer {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	width: 100%;
+	background: #0d1017;
+	color: #e6edf3;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+	overflow: hidden;
+	user-select: none;
+}
+
+/* 1. Explorer Top Navigation Toolbar */
+.toolbar {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 12px;
+	background: rgba(22, 27, 39, 0.95);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+	flex-shrink: 0;
+}
+
+.navBtnGroup {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.navIconBtn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	background: transparent;
+	border: none;
+	border-radius: 4px;
+	color: #8b949e;
+	cursor: pointer;
+	font-size: 1.1rem;
+	transition: all 0.15s ease;
+}
+
+.navIconBtn:hover:not(:disabled) {
+	background: rgba(255, 255, 255, 0.1);
+	color: #ffffff;
+}
+
+.navIconBtn:disabled {
+	opacity: 0.35;
+	cursor: not-allowed;
+}
+
+/* Breadcrumb Address Bar */
+.addressBar {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	background: rgba(13, 16, 23, 0.85);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: 6px;
+	padding: 4px 10px;
+	gap: 6px;
+	font-size: 0.82rem;
+	color: #c9d1d9;
+	overflow-x: auto;
+	white-space: nowrap;
+}
+
+.addressBar::-webkit-scrollbar {
+	display: none;
+}
+
+.addressBar:focus-within {
+	border-color: #ff1a3c;
+	box-shadow: 0 0 0 2px rgba(255, 26, 60, 0.25);
+}
+
+.driveIcon {
+	color: #00f0ff;
+	font-size: 1rem;
+	flex-shrink: 0;
+}
+
+.crumbItem {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	cursor: pointer;
+	padding: 2px 6px;
+	border-radius: 4px;
+	transition: background 0.15s ease, color 0.15s ease;
+}
+
+.crumbItem:hover {
+	background: rgba(255, 255, 255, 0.1);
+	color: #00f0ff;
+}
+
+.crumbSeparator {
+	color: #6e7681;
+	font-size: 0.75rem;
+}
+
+/* Search Box */
+.searchBox {
+	width: 220px;
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+.searchInput {
+	width: 100%;
+	background: rgba(13, 16, 23, 0.85);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: 6px;
+	padding: 6px 12px 6px 28px;
+	color: #ffffff;
+	font-size: 0.8rem;
+	outline: none;
+	transition: border-color 0.15s ease;
+}
+
+.searchInput:focus {
+	border-color: #00f0ff;
+	box-shadow: 0 0 0 2px rgba(0, 240, 255, 0.2);
+}
+
+.searchInput::placeholder {
+	color: #6e7681;
+}
+
+.searchIcon {
+	position: absolute;
+	left: 8px;
+	color: #8b949e;
+	font-size: 0.9rem;
+	pointer-events: none;
+}
+
+/* View Mode Toggles */
+.viewControls {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	border-left: 1px solid rgba(255, 255, 255, 0.1);
+	padding-left: 8px;
+}
+
+.viewModeBtn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	background: transparent;
+	border: none;
+	border-radius: 4px;
+	color: #8b949e;
+	cursor: pointer;
+	font-size: 1.1rem;
+	transition: all 0.15s ease;
+}
+
+.viewModeBtn:hover {
+	background: rgba(255, 255, 255, 0.1);
+	color: #ffffff;
+}
+
+.viewModeBtn.activeView {
+	background: rgba(255, 26, 60, 0.2);
+	color: #ff4d6d;
+	border: 1px solid rgba(255, 26, 60, 0.4);
+}
+
+/* 2. Main Body: Sidebar + Main Area + Details Panel */
+.explorerBody {
+	display: flex;
+	flex: 1;
+	height: calc(100% - 45px);
+	overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+	width: 220px;
+	background: rgba(18, 22, 32, 0.95);
+	border-right: 1px solid rgba(255, 255, 255, 0.08);
+	overflow-y: auto;
+	padding: 12px 8px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	flex-shrink: 0;
+}
+
+.sidebarGroup {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.sidebarHeading {
+	font-size: 0.68rem;
+	font-weight: 700;
+	color: #8b949e;
+	text-transform: uppercase;
+	letter-spacing: 0.8px;
+	padding: 4px 8px;
+	margin: 0;
+}
+
+.sidebarItem {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 6px 10px;
+	border-radius: 6px;
+	background: transparent;
+	border: none;
+	color: #c9d1d9;
+	font-size: 0.8rem;
+	cursor: pointer;
+	text-align: left;
+	width: 100%;
+	transition: all 0.15s ease;
+}
+
+.sidebarItem:hover {
+	background: rgba(255, 255, 255, 0.08);
+	color: #ffffff;
+}
+
+.sidebarItem.activeSidebarItem {
+	background: rgba(0, 240, 255, 0.12);
+	color: #00f0ff;
+	border-left: 3px solid #00f0ff;
+	font-weight: 600;
+}
+
+.sidebarIcon {
+	font-size: 1rem;
+	flex-shrink: 0;
+}
+
+.sidebarCount {
+	margin-left: auto;
+	font-size: 0.72rem;
+	background: rgba(255, 255, 255, 0.08);
+	padding: 1px 6px;
+	border-radius: 10px;
+	color: #8b949e;
+}
+
+.driveSpaceBar {
+	width: 100%;
+	height: 4px;
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 2px;
+	margin-top: 4px;
+	overflow: hidden;
+}
+
+.driveSpaceUsed {
+	height: 100%;
+	background: #00f0ff;
+	border-radius: 2px;
+}
+
+/* Main Folder / Files Content Area */
+.mainArea {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	background: #0d1017;
+	overflow-y: auto;
+	position: relative;
+}
+
+.statusBar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 6px 16px;
+	background: rgba(22, 27, 39, 0.6);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+	font-size: 0.72rem;
+	color: #8b949e;
+	flex-shrink: 0;
+}
+
+/* Grid View for Projects */
+.projectsGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+	gap: 14px;
+	padding: 16px;
+}
+
+.folderCard {
+	display: flex;
+	flex-direction: column;
+	background: rgba(22, 27, 39, 0.65);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	border-radius: 10px;
+	padding: 14px;
+	cursor: pointer;
+	position: relative;
+	transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.folderCard:hover {
+	background: rgba(30, 38, 54, 0.85);
+	border-color: rgba(0, 240, 255, 0.4);
+	transform: translateY(-2px);
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.folderCard.selectedCard {
+	background: rgba(255, 26, 60, 0.15);
+	border-color: #ff1a3c;
+	box-shadow: 0 0 16px rgba(255, 26, 60, 0.3);
+}
+
+.cardTopRow {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 8px;
+}
+
+.folderIconWrapper {
+	font-size: 1.8rem;
+	line-height: 1;
+}
+
+.folderNumberBadge {
+	font-size: 0.68rem;
+	font-family: monospace;
+	font-weight: 700;
+	color: #ff4d6d;
+	background: rgba(255, 26, 60, 0.15);
+	padding: 2px 6px;
+	border-radius: 4px;
+	border: 1px solid rgba(255, 26, 60, 0.3);
+}
+
+.folderTitle {
+	font-size: 0.88rem;
+	font-weight: 600;
+	color: #ffffff;
+	margin: 0 0 4px 0;
+	line-height: 1.25;
+}
+
+.folderTagline {
+	font-size: 0.74rem;
+	color: #8b949e;
+	line-height: 1.35;
+	margin: 0 0 10px 0;
+	flex: 1;
+}
+
+.folderMetaFooter {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	font-size: 0.68rem;
+	color: #6e7681;
+	border-top: 1px solid rgba(255, 255, 255, 0.05);
+	padding-top: 8px;
+	margin-top: auto;
+}
+
+.categoryTag {
+	color: #00f0ff;
+	font-weight: 600;
+}
+
+/* List / Details View */
+.listViewTable {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.8rem;
+}
+
+.listViewTable th {
+	text-align: left;
+	padding: 8px 14px;
+	color: #8b949e;
+	font-weight: 600;
+	font-size: 0.72rem;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+	background: rgba(22, 27, 39, 0.4);
+}
+
+.listRow {
+	cursor: pointer;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+	transition: background 0.15s ease;
+}
+
+.listRow:hover {
+	background: rgba(255, 255, 255, 0.06);
+}
+
+.listRow.selectedRow {
+	background: rgba(255, 26, 60, 0.15);
+	color: #ffffff;
+}
+
+.listRow td {
+	padding: 8px 14px;
+	color: #c9d1d9;
+}
+
+.listNameCell {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-weight: 600;
+	color: #ffffff;
+}
+
+/* Virtual Files Inside Folder */
+.folderContentsWrapper {
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.folderBackHeader {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding-bottom: 12px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.backUpBtn {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: 6px;
+	padding: 6px 12px;
+	color: #ffffff;
+	font-size: 0.8rem;
+	cursor: pointer;
+	transition: background 0.15s ease;
+}
+
+.backUpBtn:hover {
+	background: rgba(255, 255, 255, 0.15);
+}
+
+.folderHeaderTitle {
+	font-size: 1.1rem;
+	font-weight: 700;
+	color: #ffffff;
+	margin: 0;
+}
+
+.filesGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+	gap: 12px;
+}
+
+.fileCard {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	background: rgba(22, 27, 39, 0.7);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	border-radius: 8px;
+	padding: 10px 12px;
+	cursor: pointer;
+	transition: all 0.15s ease;
+}
+
+.fileCard:hover {
+	background: rgba(30, 38, 54, 0.9);
+	border-color: #00f0ff;
+}
+
+.fileCard.selectedFile {
+	background: rgba(0, 240, 255, 0.15);
+	border-color: #00f0ff;
+}
+
+.fileIcon {
+	font-size: 1.4rem;
+}
+
+.fileName {
+	font-size: 0.8rem;
+	font-weight: 500;
+	color: #e6edf3;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* 3. Details Panel (Inspection Sidebar) */
+.detailsPanel {
+	width: 330px;
+	background: rgba(18, 22, 32, 0.98);
+	border-left: 1px solid rgba(255, 255, 255, 0.1);
+	overflow-y: auto;
+	padding: 18px;
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	flex-shrink: 0;
+}
+
+.detailsPanelTopBar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-bottom: 6px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.detailsPaneLabel {
+	font-size: 0.68rem;
+	font-weight: 700;
+	letter-spacing: 0.8px;
+	color: #8b949e;
+}
+
+.closeDetailsBtn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: transparent;
+	border: none;
+	color: #8b949e;
+	cursor: pointer;
+	font-size: 1.15rem;
+	border-radius: 4px;
+	padding: 2px;
+	transition: all 0.15s ease;
+}
+
+.closeDetailsBtn:hover {
+	color: #ff1a3c;
+	background: rgba(255, 26, 60, 0.15);
+}
+
+.detailsHeader {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+	padding-bottom: 14px;
+}
+
+.detailsBadgeRow {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.statusCompleteBadge {
+	font-size: 0.68rem;
+	font-weight: 700;
+	color: #23a55a;
+	background: rgba(35, 165, 90, 0.15);
+	padding: 2px 8px;
+	border-radius: 4px;
+	border: 1px solid rgba(35, 165, 90, 0.3);
+}
+
+.detailsTitle {
+	font-size: 1.15rem;
+	font-weight: 700;
+	color: #ffffff;
+	margin: 0;
+	line-height: 1.3;
+}
+
+.detailsTagline {
+	font-size: 0.8rem;
+	color: #8b949e;
+	margin: 0;
+}
+
+.detailsSection {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.sectionHeading {
+	font-size: 0.7rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.6px;
+	color: #8b949e;
+	margin: 0;
+}
+
+.sectionBody {
+	font-size: 0.8rem;
+	line-height: 1.45;
+	color: #c9d1d9;
+	margin: 0;
+}
+
+.techPills {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+}
+
+.techPill {
+	font-size: 0.72rem;
+	color: #e6edf3;
+	background: rgba(255, 255, 255, 0.08);
+	padding: 3px 8px;
+	border-radius: 4px;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.featuresList {
+	margin: 0;
+	padding-left: 18px;
+	font-size: 0.78rem;
+	line-height: 1.4;
+	color: #c9d1d9;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.achievementsBox {
+	background: rgba(255, 26, 60, 0.12);
+	border: 1px solid rgba(255, 26, 60, 0.35);
+	border-radius: 8px;
+	padding: 10px 12px;
+}
+
+.achievementText {
+	font-size: 0.78rem;
+	color: #ff758f;
+	margin: 0;
+	font-weight: 600;
+}
+
+.actionButtonsGroup {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin-top: 8px;
+	border-top: 1px solid rgba(255, 255, 255, 0.08);
+	padding-top: 14px;
+}
+
+.primaryRepoBtn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	background: #ff1a3c;
+	color: #ffffff;
+	font-size: 0.82rem;
+	font-weight: 700;
+	padding: 10px 16px;
+	border-radius: 6px;
+	text-decoration: none;
+	transition: all 0.15s ease;
+}
+
+.primaryRepoBtn:hover {
+	background: #e00b2c;
+	box-shadow: 0 0 16px rgba(255, 26, 60, 0.5);
+	transform: scale(1.02);
+}
+
+.secondaryFolderBtn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	color: #ffffff;
+	font-size: 0.82rem;
+	font-weight: 600;
+	padding: 8px 16px;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: background 0.15s ease;
+}
+
+.secondaryFolderBtn:hover {
+	background: rgba(255, 255, 255, 0.16);
+}
+
+/* File Markdown Preview in Details */
+.filePreviewContainer {
+	background: rgba(13, 16, 23, 0.9);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: 8px;
+	padding: 12px;
+	font-family: monospace;
+	font-size: 0.76rem;
+	line-height: 1.45;
+	color: #e6edf3;
+	white-space: pre-wrap;
+	overflow-x: auto;
+	max-height: 280px;
+}
+
+@media (max-width: 900px) {
+	.sidebar {
+		display: none;
+	}
+
+	.detailsPanel {
+		position: absolute;
+		right: 0;
+		top: 48px;
+		bottom: 0;
+		width: 100%;
+		max-width: 380px;
+		z-index: 50;
+		box-shadow: -8px 0 32px rgba(0, 0, 0, 0.85);
+		border-left: 1px solid rgba(255, 26, 60, 0.3);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+	}
+}
+
+@media (max-width: 550px) {
+	.detailsPanel {
+		max-width: 100%;
+		border-left: none;
+	}
+}

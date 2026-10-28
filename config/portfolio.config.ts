@@ -1,3 +1,5 @@
+import { FEATURED_PROJECTS_CATALOGUE } from './projectsCatalogue';
+
 export interface ProjectItem {
 	id: string;
 	title: string;
@@ -7,7 +9,7 @@ export interface ProjectItem {
 	liveUrl?: string;
 	stars?: number;
 	featured?: boolean;
-	category: 'Web App' | 'Realtime' | 'AI & Tooling' | 'Open Source';
+	category: string;
 	image?: string;
 }
 
@@ -43,49 +45,17 @@ export const PORTFOLIO_CONFIG = {
 		resumeUrl: '/resume.pdf',
 	},
 
-	projects: [
-		{
-			id: 'webhead-os',
-			title: 'WEBHEAD — Spider-Verse Desktop OS',
-			description: 'Interactive desktop portfolio inspired by Windows 11 and Miles Morales Spider-Verse aesthetic, featuring Supabase Realtime multi-user chat, Spotify music player, live weather, interactive calendar, and draggable windows.',
-			technologies: ['Next.js 16', 'React 19', 'TypeScript', 'Supabase Realtime', 'Motion', 'CSS Modules'],
-			githubUrl: 'https://github.com/Hassan-Ali-17/WEBHEAD',
-			liveUrl: 'https://webhead-portfolio.vercel.app',
-			stars: 42,
-			featured: true,
-			category: 'Web App',
-		},
-		{
-			id: 'realtime-sync',
-			title: 'Spider-Sync Realtime Collaborative Engine',
-			description: 'Low-latency collaborative presence and state sync service powered by PostgreSQL Change Data Capture and WebSockets with optimistic UI updates.',
-			technologies: ['Node.js', 'PostgreSQL', 'Supabase', 'WebSockets', 'TypeScript'],
-			githubUrl: 'https://github.com/Hassan-Ali-17/spider-sync-engine',
-			stars: 28,
-			featured: true,
-			category: 'Realtime',
-		},
-		{
-			id: 'ai-code-copilot',
-			title: 'Multiverse Code Navigator',
-			description: 'Developer workspace agent orchestrating automated code audits, intelligent AST refactoring, and multi-file dependency graph analysis.',
-			technologies: ['TypeScript', 'Python', 'OpenAI API', 'Next.js', 'TailwindCSS'],
-			githubUrl: 'https://github.com/Hassan-Ali-17/multiverse-code-nav',
-			stars: 35,
-			featured: true,
-			category: 'AI & Tooling',
-		},
-		{
-			id: 'cyber-terminal',
-			title: 'Spider-Verse Interactive Terminal',
-			description: 'CLI emulator directly inside the browser with custom shell commands, filesystem navigation, secret multiverse easter eggs, and animated ASCII art.',
-			technologies: ['React', 'TypeScript', 'Bash Emulator', 'CSS Modules'],
-			githubUrl: 'https://github.com/Hassan-Ali-17/cyber-terminal',
-			stars: 19,
-			featured: false,
-			category: 'Open Source',
-		},
-	] as ProjectItem[],
+	projects: FEATURED_PROJECTS_CATALOGUE.map((p) => ({
+		id: p.id,
+		title: p.name,
+		description: p.summary,
+		technologies: p.technologies,
+		githubUrl: p.repositoryUrl,
+		liveUrl: p.liveDemoUrl,
+		featured: true,
+		category: p.category,
+		image: p.icon,
+	})) as ProjectItem[],
 
 	spotify: {
 		username: 'Hassanaalipnd',

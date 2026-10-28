@@ -1,0 +1,610 @@
+export interface VirtualFile {
+	name: string;
+	type: 'markdown' | 'text' | 'url' | 'code' | 'directory';
+	content?: string;
+	url?: string;
+	size?: string;
+}
+
+export interface FeaturedProject {
+	id: string;
+	folderNumber: string;
+	name: string;
+	slug: string;
+	category: 'Systems & DB' | 'AI & Machine Learning' | 'Full-Stack & Web' | 'Computer Vision & AR' | 'Game Engineering' | 'Productivity & Tools';
+	tagline: string;
+	summary: string;
+	description: string;
+	problemStatement: string;
+	technologies: string[];
+	features: string[];
+	architectureHighlights: string[];
+	repositoryUrl: string;
+	liveDemoUrl?: string;
+	status: 'complete' | 'in-progress' | 'prototype';
+	achievements?: string[];
+	dateModified: string;
+	sizeBytes: string;
+	icon: string;
+	virtualFiles: VirtualFile[];
+}
+
+export const FEATURED_PROJECTS_CATALOGUE: FeaturedProject[] = [
+	{
+		id: 'sql-query-optimizer',
+		folderNumber: '01',
+		name: 'Cost-Based SQL Query Optimizer (CB-SQLopt)',
+		slug: 'cost-based-sql-query-optimizer',
+		category: 'Systems & DB',
+		tagline: 'Selinger DP join ordering engine achieving 100–1000× speedups',
+		summary: 'A high-performance C/C++ cost-based SQL query optimizer implementing Selinger dynamic programming for join order selection, algebraic query rewrite rules, and catalog-driven column statistics.',
+		description: 'CB-SQLopt is a database optimization engine built for the Advanced DBMS curriculum at ITU. It replaces naive nested-loop execution plans with optimal multi-table join trees using dynamic programming, cost formulas based on table cardinality and disk I/O, catalog cache management, and EXPLAIN plan comparisons.',
+		problemStatement: 'Naive relational query execution suffers catastrophic performance degradation on complex multi-join queries (O(N!) search space). This engine provides cost-based plan generation and predicate pushdown to reduce disk page reads by orders of magnitude.',
+		technologies: ['C++', 'C', 'Relational Algebra', 'Selinger Algorithm', 'Dynamic Programming', 'Catalog Caching', 'Database Internals'],
+		features: [
+			'Selinger-style dynamic programming algorithm for optimal multi-join tree generation',
+			'Four algebraic query rewrite rules: Predicate Pushdown, Projection Pruning, Subquery Flattening, and Constant Folding',
+			'Per-column distribution statistics, histogram estimators, and cost models',
+			'Interactive SQL shell with visual EXPLAIN plan output',
+			'High-speed catalog metadata cache to eliminate repetitive metadata lookups',
+			'Comprehensive benchmark harness validating 100x to 1000x plan execution speedups',
+		],
+		architectureHighlights: [
+			'Lexer & Parser AST generation -> Query Canonicalization -> Cost Estimator -> DP Join Enumerator -> Physical Plan Builder',
+			'Modular catalog cache layer with LRU eviction for database schema tables',
+		],
+		repositoryUrl: 'https://github.com/Hassan-Ali-17/Cost_Based_Query_Optimizer',
+		status: 'complete',
+		achievements: ['Advanced DBMS ITU Capstone Project', 'Achieved 100–1000× speedups over naive plans in formal benchmarks'],
+		dateModified: '2026-03-15',
+		sizeBytes: '4.8 MB',
+		icon: '/icons/drives/c.png',
+		virtualFiles: [
+			{
+				name: 'README.md',
+				type: 'markdown',
+				content: `# CB-SQLopt: Cost-Based SQL Query Optimizer\n\nA C/C++ cost-based relational query optimizer with dynamic programming join ordering, algebraic rewrites, and physical execution plan benchmarking.\n\n### Key Metrics\n- **Algorithm**: Selinger Dynamic Programming (Left-deep & Bushy join trees)\n- **Speedup**: 100x to 1000x over unoptimized plans\n- **Features**: Predicate Pushdown, Catalog Cache, EXPLAIN Graph\n- **Language**: C++20 / C`,
+			},
+			{
+				name: 'Architecture.md',
+				type: 'markdown',
+				content: `### Architecture Pipeline\n\n1. **SQL Tokenizer**: Parses SQL queries into Relational AST.\n2. **Catalog Metadata Layer**: Pulls row cardinalities, index availability, and column distributions.\n3. **Rule-Based Pre-Optimizer**: Executes algebraic transformations (predicate pushdown, projection pushdown).\n4. **Cost-Based Optimizer**: Evaluates physical access paths (Sequential Scan vs Index Scan) and computes join costs.\n5. **Plan Generator**: Emits the physical execution tree for the storage engine.`,
+			},
+			{
+				name: 'Tech_Stack.txt',
+				type: 'text',
+				content: 'Languages: C++, C (C++20 Standard)\nBuild System: CMake / Make\nComponents: Query Parser, Cost Engine, Catalog Cache, Benchmark Suite\nTarget: Linux / POSIX',
+			},
+			{
+				name: 'Repository.url',
+				type: 'url',
+				url: 'https://github.com/Hassan-Ali-17/Cost_Based_Query_Optimizer',
+			},
+		],
+	},
+	{
+		id: 'vortex-os',
+		folderNumber: '02',
+		name: 'VORTEX OS — Cyberpunk Linux Environment',
+		slug: 'vortex-os-cyberpunk-linux',
+		category: 'Systems & DB',
+		tagline: 'Lightweight cyberpunk Linux desktop environment with custom Python shell',
+		summary: 'A custom Linux-based desktop operating system environment built on Ubuntu featuring a cyberpunk terminal, custom command parser, system monitoring widgets, and modular desktop applications.',
+		description: 'VORTEX OS merges low-level Linux systems programming with an immersive terminal and GUI interface built with PyQt6. It introduces an interactive command shell with custom syntax, piping, persistent command history, hardware telemetry monitoring, and desktop themes.',
+		problemStatement: 'Modern desktop environments are often bloated, resource-heavy, and lack personalization for terminal-centric developers who want instant systems diagnostics, fast command chaining, and a distinct aesthetic identity.',
+		technologies: ['Python 3', 'PyQt6', 'Linux / Ubuntu', 'POSIX Shell', 'Bash', 'System Telemetry', 'QSS / Custom Styling'],
+		features: [
+			'Custom command shell engine supporting command chaining (&&, ||, ;) and pipes',
+			'Persistent command history with fuzzy search and custom alias dictionary',
+			'Real-time system telemetry monitor (CPU core loads, RAM, disk I/O, process lists)',
+			'Cyberpunk neon desktop interface with red, cyan, and amber dimensional themes',
+			'Integrated terminal text viewer and process management utilities',
+			'Modular app architecture allowing easy expansion of GUI tools',
+		],
+		architectureHighlights: [
+			'PyQt6 event loop with non-blocking QThread workers for real-time hardware telemetry',
+			'Custom shell parsing engine tokenizing commands, flags, and redirection streams',
+		],
+		repositoryUrl: 'https://github.com/Hassan-Ali-17/Vortex_OS',
+		status: 'complete',
+		achievements: ['Fully functional custom Linux desktop session and custom shell'],
+		dateModified: '2026-02-28',
+		sizeBytes: '12.4 MB',
+		icon: '/icons/terminal/terminal.png',
+		virtualFiles: [
+			{
+				name: 'README.md',
+				type: 'markdown',
+				content: `# VORTEX OS\n\nCustom Linux-based operating system environment built on Ubuntu featuring a cyberpunk terminal, custom commands, widgets, themes, and modular apps.\n\n### Core Highlights\n- **Shell Engine**: Custom Python command parser with command chaining\n- **GUI Stack**: PyQt6 with custom QSS visual effects\n- **Monitoring**: Live CPU/Memory telemetry and process manager`,
+			},
+			{
+				name: 'System_Spec.txt',
+				type: 'text',
+				content: 'OS Base: Ubuntu 22.04+ LTS\nRuntime: Python 3.10+\nGUI Framework: PyQt6 / Qt6\nShell Features: Aliasing, Pipes, History, Subprocesses, Custom Builtins',
+			},
+			{
+				name: 'Repository.url',
+				type: 'url',
+				url: 'https://github.com/Hassan-Ali-17/Vortex_OS',
+			},
+		],
+	},
+	{
+		id: 'fairgig-platform',
+		folderNumber: '03',
+		name: 'FairGig — Gig Economy Financial Platform',
+		slug: 'fairgig-gig-worker-platform',
+		category: 'Full-Stack & Web',
+		tagline: 'Microservices platform for gig worker income transparency & OCR verification',
+		summary: 'A microservices-based platform engineered for gig workers in Pakistan to track multi-platform earnings, verify shift proof screenshots via OCR, detect income anomalies, and generate verified financial certificates.',
+		description: 'Developed for the prestigious Softec \'26 competition, FairGig solves the financial exclusion of ride-share drivers and delivery couriers (Careem, Bykea, Foodpanda, Yango). By uploading daily shift earnings, workers receive verifiable financial certificates that can be shared with financial institutions for micro-loans and creditworthiness.',
+		problemStatement: 'Millions of gig workers in emerging economies lack formal paystubs, preventing them from accessing bank accounts, credit cards, auto loans, or housing leases despite steady income streams.',
+		technologies: ['TypeScript', 'Node.js', 'Express', 'React / Next.js', 'PostgreSQL', 'Tesseract OCR', 'JWT Authentication', 'Docker'],
+		features: [
+			'Multi-platform shift earnings aggregation across major Pakistani gig platforms',
+			'Automated OCR screenshot parsing to extract shift hours, fares, and bonus payouts',
+			'Income trend analytics with visual charts and weekly / monthly breakdown graphs',
+			'Anomaly detection flagging discrepancy between reported and verified earnings',
+			'Cryptographically verified PDF Income Certificate generation for bank applications',
+			'Grievance reporting system and community support forum for worker advocacy',
+		],
+		architectureHighlights: [
+			'Microservice separation: Auth Service, Ingestion Service, OCR Extraction Worker, and Certificate Generation Engine',
+			'PostgreSQL schema with transactional consistency for financial shift ledgers',
+		],
+		repositoryUrl: 'https://github.com/Hassan-Ali-17/Softect26_project',
+		status: 'complete',
+		achievements: ['Softec \'26 Software Competition Featured Project', 'Verified financial credibility engine for Pakistani gig workers'],
+		dateModified: '2026-03-02',
+		sizeBytes: '18.6 MB',
+		icon: '/icons/folder/folder.png',
+		virtualFiles: [
+			{
+				name: 'README.md',
+				type: 'markdown',
+				content: `# FairGig — Empowering Pakistan's Gig Economy\n\nA microservice-based platform for gig workers in Pakistan to track earnings, verify proof screenshots via OCR, analyze trends, and generate verified income certificates.\n\n### Stack\n- Backend: Node.js & TypeScript microservices\n- OCR: Tesseract Engine for receipt & screenshot digitization\n- Database: PostgreSQL with encrypted financial records`,
+			},
+			{
+				name: 'Architecture.md',
+				type: 'markdown',
+				content: `### System Architecture\n\n- **Gateway**: API routing, rate limiting, and JWT validation.\n- **Worker Service**: Handles worker profiles, shifts, and earnings logs.\n- **OCR Ingestion Pipeline**: Asynchronously extracts revenue figures from mobile screenshots.\n- **Verification Engine**: Compares earnings anomalies against platform averages.\n- **Certificate Generator**: Signs and outputs official PDF proof-of-income credentials.`,
+			},
+			{
+				name: 'Repository.url',
+				type: 'url',
+				url: 'https://github.com/Hassan-Ali-17/Softect26_project',
+			},
+		],
+	},
+	{
+		id: 'ledger-twin',
+		folderNumber: '04',
+		name: 'Ledger Twin — Autonomous AI Reconciliation Agent',
+		slug: 'ledger-twin-autonomous-agent',
+		category: 'AI & Machine Learning',
+		tagline: 'Autonomous AI payment & identity reconciliation agent with tool orchestration',
+		summary: 'An autonomous multi-step financial reconciliation agent created for the Lemma x Comma Capital Hackathon that ingests conflicting transaction ledgers, executes tool calling, detects fraud, and generates audit logs.',
+		description: 'Ledger Twin automates the labor-intensive process of enterprise payment reconciliation. It deploys an LLM agent with structured tool execution, fuzzy string matching, transaction timestamp alignment, discrepancy classification, and human-in-the-loop review workflows.',
+		problemStatement: 'Finance teams spend thousands of hours manually investigating payment mismatches between internal databases, payment gateways (Stripe, PayPal), and bank statements due to currency conversions, fee deductions, and identifier typos.',
+		technologies: ['Python', 'OpenAI API / LLM Agents', 'Tool Calling', 'Pandas', 'Fuzzy Matching', 'FastAPI', 'Structured Audit Logs'],
+		features: [
+			'Autonomous agentic workflow with step-by-step reasoning and tool orchestration',
+			'Automated ledger ingestion supporting CSV, JSON, and external banking APIs',
+			'Fuzzy string and reference code matching for cross-ledger transaction alignment',
+			'Discrepancy classification (timing differences, fee deductions, currency conversions, fraud)',
+			'Comprehensive audit trail logging every agent reasoning step and decision tree',
+			'Interactive reconciliation dashboard with visual side-by-side mismatch resolution',
+		],
+		architectureHighlights: [
+			'ReAct agent loop: Observation -> Thought -> Tool Execution -> Reflection -> Reconciliation Plan',
+			'Deterministic verification rules protecting against LLM hallucinations in financial computations',
+		],
+		repositoryUrl: 'https://github.com/Hassan-Ali-17/ledger-twin',
+		status: 'complete',
+		achievements: ['Built for Lemma x Comma Capital Hackathon', 'Autonomous agent with multi-step tool calling and zero hallucination financial validation'],
+		dateModified: '2026-03-20',
+		sizeBytes: '8.2 MB',
+		icon: '/icons/shortcut/shortcut.png',
+		virtualFiles: [
+			{
+				name: 'README.md',
+				type: 'markdown',
+				content: `# Ledger Twin\n\nPayment & identity reconciliation agent developed for the Lemma x Comma Capital Hackathon.\n\n### Autonomous Capabilities\n- Multi-ledger ingestion and normalization\n- Tool calling for external database lookups and currency conversion\n- Automated discrepancy resolution with full audit logging`,
+			},
+			{
+				name: 'Agent_Tools.txt',
+				type: 'text',
+				content: 'Registered Tools:\n1. parse_ledger(file_path)\n2. fuzzy_match_identities(record_a, record_b)\n3. lookup_fx_rates(currency_pair, date)\n4. calculate_fee_tolerance(amount, gateway)\n5. generate_audit_report(reconciled_pairs, discrepancies)',
+			},
+			{
+				name: 'Repository.url',
+				type: 'url',
+				url: 'https://github.com/Hassan-Ali-17/ledger-twin',
+			},
+		],
+	},
+	{
+		id: 'echo-persona',
+		folderNumber: '05',
+		name: 'EchoPersona — Voice Emotion & Personality AI',
+		slug: 'echo-persona-deep-learning',
+		category: 'AI & Machine Learning',
+		tagline: 'Deep learning system predicting emotions & Big Five personality traits from speech',
+		summary: 'An AI-powered multimodal audio system combining signal preprocessing, acoustic feature extraction, and a hybrid CNN + BiLSTM + Attention deep learning model to classify emotional states and personality traits from voice recordings.',
+		description: 'EchoPersona analyzes raw vocal frequencies, pitch, jitter, and MFCC spectrograms to discern emotional nuances and psychometric personality traits. The hybrid architecture leverages 2D-CNNs for spatial spectrogram feature learning, Bidirectional LSTMs for temporal cadence modeling, and an Attention layer for vocal inflection weighting.',
+		problemStatement: 'Automated human-computer interaction often lacks empathy and emotional context because systems treat speech solely as text rather than understanding emotional state, stress levels, and vocal personality.',
+		technologies: ['Python 3', 'PyTorch', 'CNN + BiLSTM + Attention', 'Librosa', 'Scikit-Learn', 'Acoustic Processing', 'Matplotlib'],
+		features: [
+			'Audio preprocessing pipeline: silence trimming, normalization, and pre-emphasis filtering',
+			'Acoustic feature extraction: Mel-Frequency Cepstral Coefficients (MFCCs), chroma, spectral contrast, and tonnetz',
+			'Hybrid neural network architecture combining 2D-CNN, Bidirectional LSTM, and self-attention mechanisms',
+			'Multi-label emotion classification (Happy, Sad, Angry, Neutral, Fear, Surprised)',
+			'Regression predictions for Big Five personality dimensions (Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism)',
+			'Spectrogram and attention-weight visualization tools for explainable AI predictions',
+		],
+		architectureHighlights: [
+			'Raw Audio (16kHz) -> Mel Spectrogram Extraction -> 2D-CNN Feature Maps -> BiLSTM Sequence Model -> Attention Layer -> Dense Classification Heads',
+		],
+		repositoryUrl: 'https://github.com/Hassan-Ali-17/Echo_Persona_PFAI',
+		status: 'complete',
+		achievements: ['Advanced Artificial Intelligence ITU Project', 'High-accuracy multi-class emotion classification with attention interpretability'],
+		dateModified: '2026-02-14',
+		sizeBytes: '24.1 MB',
+		icon: '/icons/music/music.png',
+		virtualFiles: [
+			{
+				name: 'README.md',
+				type: 'markdown',
+				content: `# EchoPersona\n\nAI-powered system predicting emotions and Big Five personality traits from speech recordings using deep learning.\n\n### Model Architecture\n- Acoustic Preprocessing: Librosa MFCCs & Spectrograms\n- Spatial Feature Learning: 2D-CNN\n- Temporal Context: Bidirectional LSTM\n- Weighting Mechanism: Self-Attention Layer`,
+			},
+			{
+				name: 'Model_Spec.md',
+				type: 'markdown',
+				content: `### Network Specifications\n\n- **Input**: 128-band Mel Spectrogram (padded/truncated to 3.0s)\n- **CNN Blocks**: 3x Conv2D with BatchNorm, ReLU, and MaxPooling\n- **Recurrent**: 2-layer BiLSTM with 128 hidden units per direction\n- **Attention**: Scaled dot-product attention pooling\n- **Loss Function**: Categorical Cross-Entropy (Emotions) + MSE (Big Five Traits)`,
+			},
+			{
+				name: 'Repository.url',
+				type: 'url',
+				url: 'https://github.com/Hassan-Ali-17/Echo_Persona_PFAI',
+			},
+		],
+	},
+	{
+		id: 'loopserve-ember',
+		folderNumber: '06',
+		name: 'LoopServe 3.0 (EMBER) — Restaurant Operations',
+		slug: 'loopserve-ember-restaurant-system',
+		category: 'Full-Stack & Web',
+		tagline: 'Enterprise restaurant operations & real-time dining system (Loopverse 3.0)',
+		summary: 'An enterprise restaurant operations and ordering system developed for the Loopverse 3.0 Virtual App Challenge, combining interactive customer dining workflows with live kitchen ticket and portion management.',
+		description: 'LoopServe 3.0 (EMBER) reimagines the dining experience through a cinematic interface and resilient backend. It handles real-time table orders, ingredient customizations, dynamic portion limits, kitchen ticket preparation statuses, and payment receipts with optimistic state updates.',
+		problemStatement: 'Restaurant digital ordering systems frequently encounter inventory race conditions during peak hours (e.g. two customers ordering the final portion of a specialty dish simultaneously) and poor kitchen communication.',
+		technologies: ['Dart', 'Flutter', 'State Management', 'REST APIs', 'Real-Time Sync', 'JSON Serializer', 'Material 3 Design'],
+		features: [
+			'Cinematic dining menu with categorized courses, ingredient tags, and price updates',
+			'Customization modal supporting dietary exclusions, spiciness adjustments, and add-ons',
+			'Atomic portion conflict handling preventing over-ordering of limited kitchen inventory',
+			'Kitchen operations ticket view with real-time status transitions (Received, Cooking, Plated, Served)',
+			'Digital receipt generation and billing breakdown with taxes and gratuity',
+			'Responsive multi-platform support across mobile tablets and point-of-sale displays',
+		],
+		architectureHighlights: [
+			'Event-driven state management decoupling the consumer ordering client from kitchen display system (KDS)',
+			'Optimistic local updates with automatic server rollback on inventory shortages',
+		],
+		repositoryUrl: 'https://github.com/Hassan-Ali-17/VerseLoop',
+		status: 'complete',
+		achievements: ['Loopverse 3.0 Virtual App Development Challenge', 'Complete consumer ordering & kitchen operations synchronization'],
+		dateModified: '2026-03-10',
+		sizeBytes: '14.2 MB',
+		icon: '/icons/pictures/pictures.png',
+		virtualFiles: [
+			{
+				name: 'README.md',
+				type: 'markdown',
+				content: `# LoopServe 3.0 — Track A: Advanced Restaurant Operations System\n\n**Loopverse 3.0 Virtual App Development Challenge**\nVisual Concept: **EMBER** — Modern Fine Dining Meets Cinematic Digital Craftsmanship\n\n### System Overview\nFull-stack restaurant operations and dining experience handling multi-tier menus, live kitchen tickets, and portion management.`,
+			},
+			{
+				name: 'Features.txt',
+				type: 'text',
+				content: '- Table and guest management\n- Real-time kitchen ticket synchronization\n- Portion inventory conflict protection\n- Multi-category menu with dietary filtering',
+			},
+			{
+				name: 'Repository.url',
+				type: 'url',
+				url: 'https://github.com/Hassan-Ali-17/VerseLoop',
+			},
+		],
+	},
+	{
+		id: 'dos-shell',
+		folderNumber: '07',
+		name: 'DOS-SHELL — In-Memory Virtual File System',
+		slug: 'dos-shell-cpp-virtual-filesystem',
+		category: 'Systems & DB',
+		tagline: 'Object-oriented DOS command shell with virtual filesystem and Vim editor',
+		summary: 'A complete in-memory DOS-style command shell written in C++ featuring a hierarchical virtual file system, tree data structures, an interactive Vim-like text editor, and a print job queue scheduler.',
+		description: 'DOS-SHELL demonstrates core data structures and systems fundamentals by implementing an operating system shell from scratch. It models files and folders as an n-ary tree, processes nested path traversal, implements a text editor with buffer manipulations, and runs a FIFO/priority print spooler.',
+		problemStatement: 'Understanding operating system file management, pointer relationships, memory allocation, and process scheduling requires practical implementation of hierarchical data structures and CLI command dispatchers.',
+		technologies: ['C++', 'Data Structures & Algorithms', 'Virtual File System', 'N-ary Trees', 'Queue Scheduling', 'Buffer Text Editor'],
+		features: [
+			'Hierarchical virtual file system using pointer-based n-ary tree structures',
+			'Complete suite of DOS commands: DIR, CD, MD, RD, DEL, COPY, MOVE, TYPE, TREE, CLS',
+			'Built-in Vim-like console text editor with insert/command modes and buffer saving',
+			'Print job queue scheduler demonstrating FIFO and priority process queuing',
+			'Path normalization supporting relative (., ..) and absolute file system navigation',
+			'Memory leak prevention with custom tree traversal destructor and node deallocation',
+		],
+		architectureHighlights: [
+			'DirectoryNode and FileNode inheritance hierarchy with generic tree traversal algorithms',
+			'Command Dispatcher mapping CLI strings to polymorphic file-system operation routines',
+		],
+		repositoryUrl: 'https://github.com/Hassan-Ali-17/DOS-SHELL',
+		status: 'complete',
+		achievements: ['Data Structures & Algorithms ITU Capstone', 'Zero third-party library dependencies — built purely with standard C++'],
+		dateModified: '2026-01-20',
+		sizeBytes: '3.4 MB',
+		icon: '/icons/terminal/terminal.png',
+		virtualFiles: [
+			{
+				name: 'README.md',
+				type: 'markdown',
+				content: `# DOS-SHELL\n\n**Rebuilding the classic DOS experience from scratch** — a fully in-memory, object-oriented DOS-style command shell written in C++, complete with a virtual file system, a built-in Vim-like text editor, and a print job scheduler.\n\n### Built with\n- C++ (Pure standard libraries)\n- N-ary Tree File System\n- Console Buffer Text Editor`,
+			},
+			{
+				name: 'Commands.txt',
+				type: 'text',
+				content: 'Supported Shell Commands:\n- MD <dir>       : Make Directory\n- CD <path>      : Change Directory\n- RD <dir>       : Remove Directory\n- DIR            : List current directory contents\n- TREE           : Visual ASCII tree display\n- EDIT <file>    : Launch built-in Vim text editor\n- TYPE <file>    : Print file contents to console\n- PRINT <file>   : Queue file in print spooler\n- SHOW_QUEUE     : Inspect active print queue jobs',
+			},
+			{
+				name: 'Repository.url',
+				type: 'url',
+				url: 'https://github.com/Hassan-Ali-17/DOS-SHELL',
+			},
+		],
+	},
+	{
+		id: 'zaiqa-on-wheels',
+		folderNumber: '08',
+		name: 'Zaiqa On Wheels — E-Commerce & Delivery',
+		slug: 'zaiqa-on-wheels-food-delivery',
+		category: 'Full-Stack & Web',
+		tagline: 'Full-stack food and grocery ordering platform with merchant admin tools',
+		summary: 'A full-stack food and grocery ordering web application built with Python backend, responsive frontend, and relational database, allowing users to browse menus, manage carts, track deliveries, and run merchant operations.',
+		description: 'Zaiqa On Wheels provides a complete e-commerce experience tailored for local food vendors and grocery markets. It incorporates customer authentication, dynamic cart calculation, order checkout, live delivery updates, and an administrative portal for menu item and order fulfillment management.',
+		problemStatement: 'Local food vendors require affordable, independent digital storefronts without extortionate third-party aggregator commissions while retaining full control over customer relationships and delivery zones.',
+		technologies: ['Python', 'Django / Flask', 'JavaScript (ES6)', 'SQLite', 'HTML5', 'CSS3', 'RESTful Endpoints'],
+		features: [
+			'Customer registration, secure session authentication, and user profile management',
+			'Interactive categorized menu exploration with search and price filtering',
+			'Shopping cart with dynamic quantity adjustments and subtotal / tax calculations',
+			'Order submission and live status progression (Pending, Confirmed, On Route, Delivered)',
+			'Administrative merchant dashboard for adding menu items, prices, and stock statuses',
+			'Responsive mobile-first layout optimized for fast smartphone ordering',
+		],
+		architectureHighlights: [
+			'MVC architectural pattern cleanly separating business logic, database models, and HTML/CSS view templates',
+			'Relational schema mapping Users -> Orders -> OrderItems -> Products with foreign key integrity',
+		],
+		repositoryUrl: 'https://github.com/Hassan-Ali-17/Zaiqa-On-Wheels-Food-and-groceries-ordering-website',
+		status: 'complete',
+		achievements: ['Complete end-to-end full stack web application with active user workflows'],
+		dateModified: '2026-02-05',
+		sizeBytes: '9.6 MB',
+		icon: '/icons/explorer/explorer.png',
+		virtualFiles: [
+			{
+				name: 'README.md',
+				type: 'markdown',
+				content: `# Zaiqa On Wheels\n\nFull-stack food and grocery ordering web application built with Python (Flask/Django) on the backend, HTML, CSS, and JavaScript on the frontend, and SQLite database.\n\n### Core Capabilities\n- Menu exploration and cart checkout\n- Real-time order dispatch tracking\n- Merchant inventory management dashboard`,
+			},
+			{
+				name: 'Tech_Stack.txt',
+				type: 'text',
+				content: 'Backend: Python (Flask/Django)\nFrontend: HTML5, CSS3, Vanilla JavaScript\nDatabase: SQLite3\nArchitecture: MVC Pattern',
+			},
+			{
+				name: 'Repository.url',
+				type: 'url',
+				url: 'https://github.com/Hassan-Ali-17/Zaiqa-On-Wheels-Food-and-groceries-ordering-website',
+			},
+		],
+	},
+	{
+		id: 'task-flow-pro',
+		folderNumber: '09',
+		name: 'TaskFlow Pro — Multi-Domain Productivity Hub',
+		slug: 'taskflow-pro-productivity-platform',
+		category: 'Productivity & Tools',
+		tagline: 'AI-assisted task management platform with in-browser code compiler',
+		summary: 'An AI-powered team task management platform designed across engineering, design, HR, and marketing domains featuring smart deadline assignment, kanban progress boards, and an integrated in-browser code compiler.',
+		description: 'TaskFlow Pro unifies siloed departmental tools into a single collaborative workspace. Engineering tickets can be tested directly within the built-in compiler, while design and marketing campaigns follow visual kanban pipelines with deadline health indicators.',
+		problemStatement: 'Cross-functional teams often suffer from tool fragmentation where engineers use Jira, designers use Trello, and marketing uses Asana, causing loss of visibility and coordination friction.',
+		technologies: ['JavaScript', 'HTML5', 'CSS3 Modules', 'Browser Code Execution', 'LocalStorage API', 'Kanban Architecture'],
+		features: [
+			'Multi-domain task boards (Software Engineering, UI/UX Design, Marketing, HR)',
+			'Built-in in-browser code compiler supporting multi-language test executions',
+			'Interactive drag-and-drop Kanban workflow (To-Do, In-Progress, Code Review, Done)',
+			'Smart deadline monitor with color-coded urgency and notification badges',
+			'Task priority filtering, assignee tags, and domain-specific checklists',
+			'Persistent offline storage via LocalStorage with instant state hydration',
+		],
+		architectureHighlights: [
+			'Component-based client state synchronization with modular card dispatchers',
+			'Sandboxed in-browser evaluation container executing code snippets securely',
+		],
+		repositoryUrl: 'https://github.com/Hassan-Ali-17/Task_Flow_Pro',
+		status: 'complete',
+		achievements: ['Cross-domain productivity solution with embedded interactive compiler'],
+		dateModified: '2026-01-28',
+		sizeBytes: '6.5 MB',
+		icon: '/icons/notes/notes.png',
+		virtualFiles: [
+			{
+				name: 'README.md',
+				type: 'markdown',
+				content: `# TaskFlow Pro\n\nAn AI-powered team task management platform for every domain. Assign coding, design, HR, marketing & more. Built-in compiler, smart deadlines, and workflow analytics.\n\n### Features\n- Domain-specific workspaces\n- Interactive Kanban drag-and-drop\n- Embedded live code compiler`,
+			},
+			{
+				name: 'Domains.txt',
+				type: 'text',
+				content: 'Supported Workspaces:\n1. Software Engineering (Tickets + Code Compiler)\n2. UI/UX Design (Figma asset tracking)\n3. Growth & Marketing (Campaign schedules)\n4. People & HR (Onboarding roadmaps)',
+			},
+			{
+				name: 'Repository.url',
+				type: 'url',
+				url: 'https://github.com/Hassan-Ali-17/Task_Flow_Pro',
+			},
+		],
+	},
+	{
+		id: 'scrabble-game',
+		folderNumber: '10',
+		name: 'Digital Scrabble Game — C++ & SFML',
+		slug: 'digital-scrabble-game-cpp-sfml',
+		category: 'Game Engineering',
+		tagline: 'Complete word game with automated dictionary validation & bonus scoring',
+		summary: 'A digital recreation of classic Scrabble developed in C++ using the SFML graphics library, featuring a 15x15 interactive board, automated dictionary word validation, bonus multipliers, and multiplayer turn logic.',
+		description: 'Built for an Object-Oriented Programming semester project, this application models Scrabble rules faithfully. It manages player tile racks, board placement validation, contiguous word checking across rows and columns, double/triple letter/word score multipliers, and pass/exchange turn cycles.',
+		problemStatement: 'Implementing Scrabble in software requires solving complex board representation challenges, including multi-directional cross-word detection, dictionary lookup efficiency, and rule validation.',
+		technologies: ['C++', 'SFML (Simple and Fast Multimedia Library)', 'OOP Design', 'Dictionary Trie / Hash Validation', 'Event-Driven Graphics'],
+		features: [
+			'Interactive 15x15 graphical Scrabble board with premium bonus tile layout',
+			'Automated dictionary lookup verifying valid English word combinations in real time',
+			'Accurate calculation of Double Letter, Triple Letter, Double Word, and Triple Word multipliers',
+			'Multiplayer turn management with tile rack replenishments and passing mechanisms',
+			'Mouse click and keyboard controls for tile selection and board positioning',
+			'Game-over condition checks including empty tile bag and consecutive pass detection',
+		],
+		architectureHighlights: [
+			'Polymorphic tile and board square classes encapsulating multiplier behaviors',
+			'SFML event dispatch loop cleanly separated from core game rule validator engine',
+		],
+		repositoryUrl: 'https://github.com/Hassan-Ali-17/Oop-Sem-proj-Scrabble',
+		status: 'complete',
+		achievements: ['OOP Semester Project at ITU', 'Fully playable C++ game with complete SFML GUI and word validation'],
+		dateModified: '2026-01-10',
+		sizeBytes: '5.1 MB',
+		icon: '/icons/links/links.png',
+		virtualFiles: [
+			{
+				name: 'README.md',
+				type: 'markdown',
+				content: `# Digital Scrabble Game — C++ & SFML\n\nA digital Scrabble game using C++ and the SFML library, replicating the classic word game where players form words on a 15x15 board to score points.\n\n### Features\n- Automated rule enforcement and word validation\n- Double/Triple letter and word score multipliers\n- Full graphical interface rendered via SFML`,
+			},
+			{
+				name: 'Game_Rules.txt',
+				type: 'text',
+				content: 'Board Dimension: 15x15\nBonus Tiles:\n- DL: Double Letter (Light Blue)\n- TL: Triple Letter (Dark Blue)\n- DW: Double Word (Pink)\n- TW: Triple Word (Red)\nTile Bag: 100 tiles with standard English Scrabble frequency distribution',
+			},
+			{
+				name: 'Repository.url',
+				type: 'url',
+				url: 'https://github.com/Hassan-Ali-17/Oop-Sem-proj-Scrabble',
+			},
+		],
+	},
+	{
+		id: 'spiderman-ar-lens',
+		folderNumber: '11',
+		name: 'Spider-Man AR Lens & Gesture Portal',
+		slug: 'spiderman-ar-lens-gesture-portal',
+		category: 'Computer Vision & AR',
+		tagline: 'Real-time hand tracking AR portal with Spider-Man dimensional filters',
+		summary: 'An augmented reality computer vision application that tracks real-time hand gestures with MediaPipe and OpenCV to render interactive portals and switch between custom Spider-Verse visual filters.',
+		description: 'Inspired by Miles Morales, Spider-Noir, and Miguel O\'Hara (Spider-Man 2099), this project transforms the user\'s webcam feed into a dimensional portal. Natural hand gestures (open palm, pinch, web-shooter gesture) trigger portal expansions and dimensional filter transitions.',
+		problemStatement: 'Real-time augmented reality requires low-latency hand landmark tracking and efficient frame rendering without introducing GPU/CPU thermal throttling on standard developer laptops.',
+		technologies: ['Python 3', 'OpenCV', 'MediaPipe', 'NumPy', 'Gesture Recognition', 'Real-Time Video Stream'],
+		features: [
+			'Real-time 21-point hand landmark tracking via MediaPipe Hands',
+			'Geometric gesture recognition detecting web-shooter, pinch, and palm gestures',
+			'Dynamic portal mask rendering with chromatic glitch and edge feathering',
+			'Spider-Man themed filters: Miles Morales Neon Shards, Spider-Noir Monochrome, and 2099 Cyber Red',
+			'Smooth frame interpolation maintaining 30+ FPS video processing',
+			'Keyboard shortcuts for recording, screenshot capture, and camera toggling',
+		],
+		architectureHighlights: [
+			'Pipelines webcam frame -> MediaPipe landmark estimator -> Gesture classifier -> Pixel shader mask overlay -> Display output',
+		],
+		repositoryUrl: 'https://github.com/Hassan-Ali-17/Spiderman_lens',
+		status: 'complete',
+		achievements: ['Spider-Verse inspired interactive computer vision application with real-time hand gesture tracking'],
+		dateModified: '2026-03-05',
+		sizeBytes: '7.8 MB',
+		icon: '/icons/spider/spider.png',
+		virtualFiles: [
+			{
+				name: 'README.md',
+				type: 'markdown',
+				content: `# Spiderman Lens\n\nAn augmented reality project that generates an interactive portal in your camera feed using real-time hand tracking. Through natural hand gestures, you can switch between visual filters — including several Spider-Man-inspired lenses — rendered live inside the portal.\n\n### Tech Stack\n- Python & OpenCV\n- MediaPipe Hand Landmark Tracking\n- Custom Real-Time Mask Compositing`,
+			},
+			{
+				name: 'Lenses.txt',
+				type: 'text',
+				content: 'Available AR Dimensions:\n1. Earth-1610 (Miles Morales): Neon graffiti edge detection & red halo\n2. Earth-90214 (Spider-Noir): High-contrast monochrome film grain\n3. Earth-928 (Spider-Man 2099): Cyan and digital red holographic scanlines',
+			},
+			{
+				name: 'Repository.url',
+				type: 'url',
+				url: 'https://github.com/Hassan-Ali-17/Spiderman_lens',
+			},
+		],
+	},
+	{
+		id: 'chess-master',
+		folderNumber: '12',
+		name: 'Chess Master C++ — Engine & Logic',
+		slug: 'chess-master-cpp-engine',
+		category: 'Game Engineering',
+		tagline: 'Complete object-oriented chess engine with full move validation & check detection',
+		summary: 'A fully functional chess game engine and console GUI developed in C++ showcasing object-oriented principles, complete move validation for all 6 pieces, check/checkmate detection, and game state history.',
+		description: 'Chess Master implements the complete rules of competitive international chess. It handles complex piece mechanics including castling (kingside & queenside), en passant captures, pawn promotion, check verification, and checkmate/stalemate detection.',
+		problemStatement: 'Writing a bug-free chess engine requires modeling the intricate interdependencies between piece movements, pinned pieces preventing king exposure, and board state transitions.',
+		technologies: ['C++', 'Object-Oriented Design', 'Game State Trees', 'Bitwise & Matrix Board Representations', 'Algorithms'],
+		features: [
+			'Complete legal move generation for Pawns, Knights, Bishops, Rooks, Queens, and Kings',
+			'Special rule enforcement: Castling, En Passant, and Pawn Promotion choices',
+			'King safety engine with real-time Check, Checkmate, and Stalemate validation',
+			'Move history log with standard algebraic notation recording',
+			'Interactive console board display with clear coordinate grids and piece glyphs',
+			'Modular architecture separating MoveValidator, BoardState, and PlayerController',
+		],
+		architectureHighlights: [
+			'Polymorphic Piece base class with pure virtual `isValidMove` method overridden by each piece type',
+			'Simulated move board copying for verifying that a move does not place the moving king in check',
+		],
+		repositoryUrl: 'https://github.com/Hassan-Ali-17/chess-',
+		status: 'complete',
+		achievements: ['Complete C++ chess implementation with 100% rule compliance and zero external dependencies'],
+		dateModified: '2026-01-05',
+		sizeBytes: '3.1 MB',
+		icon: '/icons/documents/documents.png',
+		virtualFiles: [
+			{
+				name: 'README.md',
+				type: 'markdown',
+				content: `# Chess Master C++\n\nA fully functional, object-oriented chess game implemented in pure C++.\n\n### Features\n- Full piece move validation\n- Check, Checkmate, and Stalemate detection\n- Castling, En Passant, and Pawn Promotion\n- Move history and algebraic logging`,
+			},
+			{
+				name: 'Pieces.txt',
+				type: 'text',
+				content: 'Class Hierarchy:\nPiece (Abstract Base)\n├── King\n├── Queen\n├── Rook\n├── Bishop\n├── Knight\n└── Pawn',
+			},
+			{
+				name: 'Repository.url',
+				type: 'url',
+				url: 'https://github.com/Hassan-Ali-17/chess-',
+			},
+		],
+	},
+];
+
+export const EXPLORER_CATEGORIES = [
+	'All Projects',
+	'Systems & DB',
+	'AI & Machine Learning',
+	'Full-Stack & Web',
+	'Computer Vision & AR',
+	'Game Engineering',
+	'Productivity & Tools',
+] as const;
