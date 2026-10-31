@@ -13,6 +13,9 @@ export default function Home() {
 			<Head>
 				<title>{owner.name} — WEBHEAD | Spider-Verse Developer Portfolio</title>
 				<link rel="canonical" href="https://webhead-portfolio.vercel.app" />
+				<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+				<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+				<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
 				{/* Metadata & SEO */}
 				<meta

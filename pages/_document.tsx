@@ -12,33 +12,38 @@ export default function Document() {
 					rel="stylesheet"
 				/>
 
+				{/* Favicons */}
+				<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+				<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+				<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
 				{/* SEO & Open Graph meta tags */}
-				<meta name="theme-color" content="#55FFFF" />
+				<meta name="theme-color" content="#ff1a3c" />
 				<meta charSet="utf-8" />
 				<meta name="language" content="english" />
 
-				<meta name="author" content="kassq" />
-				<meta name="designer" content="kassq" />
-				<meta name="publisher" content="kassq" />
+				<meta name="author" content="Hassan Ali Shah" />
+				<meta name="designer" content="Hassan Ali Shah" />
+				<meta name="publisher" content="Hassan Ali Shah" />
 
 				<meta
 					name="keywords"
-					content="kassq, kasperi, coding, development"
+					content="Hassan Ali Shah, Full Stack Developer, Agentic AI Engineer, Spider-Verse, Webhead, Portfolio"
 				/>
 
 				<meta name="robots" content="index, follow" />
-				<meta name="subject" content="Personal" />
+				<meta name="subject" content="Portfolio" />
 
 				{/* Global OpenGraph tags */}
 				<meta
 					property="og:site_name"
-					content="Average Windows enjoyer"
+					content="Hassan Ali Shah — WEBHEAD"
 				/>
 				<meta property="og:type" content="website" />
-				<meta property="og:url" content="https://www.kassq.dev" />
+				<meta property="og:url" content="https://webhead-portfolio.vercel.app" />
 				<meta
 					property="og:image"
-					content="https://www.kassq.dev/logo.webp"
+					content="/images/webhead-hood.png"
 				/>
 			</Head>
 			<body>
