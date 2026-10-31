@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { AiFillGithub, AiFillLinkedin, AiOutlineMail, AiOutlineTwitter } from 'react-icons/ai';
+import { AiFillGithub, AiFillLinkedin, AiOutlineMail, AiOutlinePhone, AiOutlineGlobal } from 'react-icons/ai';
 import { BsTerminal } from 'react-icons/bs';
-import { FiDownload } from 'react-icons/fi';
+import { FiDownload, FiMapPin } from 'react-icons/fi';
 import { PORTFOLIO_CONFIG } from '../../../config/portfolio.config';
 import DraggableWindow from '../../utils/DraggableWindow/DraggableWindow';
 import styles from './AboutWindow.module.css';
@@ -36,13 +36,17 @@ export default function AboutWindow() {
 							height={96}
 							className={styles.avatarImg}
 						/>
-						<span className={styles.statusDot} title="Earth-1610 Active" />
+						<span className={styles.statusDot} title="Active Status" />
 					</div>
 
 					<div className={styles.heroText}>
 						<div className={styles.badgeRow}>
 							<span className={styles.dimensionBadge}>Earth-1610</span>
 							<span className={styles.statusBadge}>Available for Hire</span>
+							<span className={styles.locationBadge}>
+								<FiMapPin style={{ display: 'inline', marginRight: 4 }} />
+								{owner.location}
+							</span>
 						</div>
 						<h1 className={styles.name}>{owner.name}</h1>
 						<p className={styles.title}>{owner.title}</p>
@@ -63,15 +67,37 @@ export default function AboutWindow() {
 
 				{/* Bio Transmission */}
 				<div className={styles.bioCard}>
-					<h3>TRANSMISSION DOSSIER</h3>
+					<h3>TRANSMISSION DOSSIER // PROFESSIONAL SUMMARY</h3>
 					<p>{owner.bio}</p>
 				</div>
 
 				{/* Tech Stack Matrix */}
 				<div className={styles.skillsSection}>
-					<h3>SUPERPOWERS & TECH STACK</h3>
+					<h3>TECHNICAL EXPERTISE & SUPERPOWERS</h3>
 
 					<div className={styles.skillsGrid}>
+						<div className={styles.skillCategoryCard}>
+							<h4>AI / ML & Agentic Systems</h4>
+							<div className={styles.tagList}>
+								{owner.skills.aiml.map((s) => (
+									<span key={s} className={styles.tagRed}>
+										{s}
+									</span>
+								))}
+							</div>
+						</div>
+
+						<div className={styles.skillCategoryCard}>
+							<h4>Languages & Systems</h4>
+							<div className={styles.tagList}>
+								{owner.skills.languages.map((s) => (
+									<span key={s} className={styles.tagCyan}>
+										{s}
+									</span>
+								))}
+							</div>
+						</div>
+
 						<div className={styles.skillCategoryCard}>
 							<h4>Frontend Engineering</h4>
 							<div className={styles.tagList}>
@@ -84,20 +110,9 @@ export default function AboutWindow() {
 						</div>
 
 						<div className={styles.skillCategoryCard}>
-							<h4>Backend & Real-Time</h4>
+							<h4>Backend & Databases</h4>
 							<div className={styles.tagList}>
-								{owner.skills.backend.map((s) => (
-									<span key={s} className={styles.tagRed}>
-										{s}
-									</span>
-								))}
-							</div>
-						</div>
-
-						<div className={styles.skillCategoryCard}>
-							<h4>Tooling & Cloud</h4>
-							<div className={styles.tagList}>
-								{owner.skills.tools.map((s) => (
+								{[...owner.skills.backend, ...owner.skills.databases].map((s) => (
 									<span key={s} className={styles.tagPurple}>
 										{s}
 									</span>
@@ -106,10 +121,21 @@ export default function AboutWindow() {
 						</div>
 
 						<div className={styles.skillCategoryCard}>
-							<h4>Spider-Verse Specialities</h4>
+							<h4>Mobile Development</h4>
 							<div className={styles.tagList}>
-								{owner.skills.spiderverse.map((s) => (
+								{owner.skills.mobile.map((s) => (
 									<span key={s} className={styles.tagGold}>
+										{s}
+									</span>
+								))}
+							</div>
+						</div>
+
+						<div className={styles.skillCategoryCard}>
+							<h4>Core CS & Architecture</h4>
+							<div className={styles.tagList}>
+								{owner.skills.coreCS.map((s) => (
+									<span key={s} className={styles.tagCyan}>
 										{s}
 									</span>
 								))}
@@ -118,8 +144,24 @@ export default function AboutWindow() {
 					</div>
 				</div>
 
-				{/* Social Links */}
+				{/* Social & Contact Links */}
 				<div className={styles.socialBar}>
+					<a
+						href={`mailto:${owner.email}`}
+						className={styles.socialLink}
+						title={`Send Email to ${owner.email}`}
+					>
+						<AiOutlineMail />
+						<span>{owner.email}</span>
+					</a>
+					<a
+						href={`tel:${owner.phone.replace(/\s+/g, '')}`}
+						className={styles.socialLink}
+						title={`Call ${owner.phone}`}
+					>
+						<AiOutlinePhone />
+						<span>{owner.phone}</span>
+					</a>
 					<a
 						href={owner.socials.github}
 						target="_blank"
@@ -140,24 +182,16 @@ export default function AboutWindow() {
 						<AiFillLinkedin />
 						<span>LinkedIn</span>
 					</a>
-					<a
-						href={`mailto:${owner.email}`}
-						className={styles.socialLink}
-						title="Email Transmission"
-					>
-						<AiOutlineMail />
-						<span>Email</span>
-					</a>
-					{owner.socials.twitter && (
+					{owner.socials.portfolio && (
 						<a
-							href={owner.socials.twitter}
+							href={owner.socials.portfolio}
 							target="_blank"
 							rel="noopener noreferrer"
 							className={styles.socialLink}
-							title="Twitter / X"
+							title="Web Portfolio"
 						>
-							<AiOutlineTwitter />
-							<span>Twitter</span>
+							<AiOutlineGlobal />
+							<span>Portfolio</span>
 						</a>
 					)}
 				</div>

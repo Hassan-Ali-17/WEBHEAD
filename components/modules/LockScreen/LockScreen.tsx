@@ -203,29 +203,6 @@ export default function LockScreen({ onUnlock }: LockScreenProps) {
 					</form>
 
 					{errorMsg && <p className={styles.statusMsg}>{errorMsg}</p>}
-
-					<div className={styles.quickLoginRow}>
-						<button
-							type="button"
-							className={styles.quickBtn}
-							onClick={() => {
-								setUsernameInput('Hassan-Ali-17');
-								setTimeout(() => handleSignIn(), 50);
-							}}
-						>
-							Sign In as Hassan-Ali-17
-						</button>
-						<button
-							type="button"
-							className={styles.quickBtn}
-							onClick={() => {
-								setUsernameInput('spider-visitor');
-								setTimeout(() => handleSignIn(), 50);
-							}}
-						>
-							Guest Access
-						</button>
-					</div>
 				</div>
 
 				{/* Bottom Helper Hint */}

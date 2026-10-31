@@ -8,27 +8,56 @@ function About() {
 		return `========================================
 WEBHEAD // SPIDER-VERSE DEVELOPER DOSSIER
 ========================================
-Owner: ${PORTFOLIO_CONFIG.owner.name}
-Role: ${PORTFOLIO_CONFIG.owner.title}
-Base: ${PORTFOLIO_CONFIG.owner.location}
-Tagline: "${PORTFOLIO_CONFIG.owner.tagline}"
+Owner:    ${PORTFOLIO_CONFIG.owner.name}
+Role:     ${PORTFOLIO_CONFIG.owner.title}
+Base:     ${PORTFOLIO_CONFIG.owner.location}
+Phone:    ${PORTFOLIO_CONFIG.owner.phone}
+Email:    ${PORTFOLIO_CONFIG.owner.email}
+Tagline:  "${PORTFOLIO_CONFIG.owner.tagline}"
 
-ABOUT ME:
+PROFESSIONAL SUMMARY:
 ${PORTFOLIO_CONFIG.owner.bio}
 
-CORE SUPERPOWERS:
-- Frontend: ${PORTFOLIO_CONFIG.owner.skills.frontend.join(', ')}
-- Backend: ${PORTFOLIO_CONFIG.owner.skills.backend.join(', ')}
-- Tools: ${PORTFOLIO_CONFIG.owner.skills.tools.join(', ')}
-- Spider-Verse: ${PORTFOLIO_CONFIG.owner.skills.spiderverse.join(', ')}
+TECHNICAL SKILLS:
+- Languages:           ${PORTFOLIO_CONFIG.owner.skills.languages.join(', ')}
+- AI / ML & Agentic:   ${PORTFOLIO_CONFIG.owner.skills.aiml.join(', ')}
+- Frontend:            ${PORTFOLIO_CONFIG.owner.skills.frontend.join(', ')}
+- Backend & Cloud:     ${[...PORTFOLIO_CONFIG.owner.skills.backend, ...PORTFOLIO_CONFIG.owner.skills.databases].join(', ')}
+- Mobile Development:  ${PORTFOLIO_CONFIG.owner.skills.mobile.join(', ')}
+- Core Computer Sci:   ${PORTFOLIO_CONFIG.owner.skills.coreCS.join(', ')}
+- Tools & DevOps:      ${PORTFOLIO_CONFIG.owner.skills.tools.join(', ')}
+
+PROFESSIONAL EXPERIENCE:
+${PORTFOLIO_CONFIG.owner.experience
+	.map(
+		(e) => `• ${e.role} — ${e.company} (${e.period})
+  ${e.summary}
+${e.highlights.map((h) => `    - ${h}`).join('\n')}`
+	)
+	.join('\n\n')}
+
+ACHIEVEMENTS & RECOGNITION:
+${PORTFOLIO_CONFIG.owner.achievements
+	.map((a) => `• ${a.title}\n  ${a.description}`)
+	.join('\n\n')}
+
+EDUCATION:
+${PORTFOLIO_CONFIG.owner.education
+	.map((ed) => `• ${ed.degree} — ${ed.institution} (${ed.period}) [${ed.details}]`)
+	.join('\n')}
+
+CORE STRENGTHS:
+${PORTFOLIO_CONFIG.owner.coreStrengths.map((cs) => `• ${cs}`).join('\n')}
 
 CONNECT:
-- GitHub: ${PORTFOLIO_CONFIG.owner.socials.github}
-- LinkedIn: ${PORTFOLIO_CONFIG.owner.socials.linkedin}
-- Discord: ${PORTFOLIO_CONFIG.discord.username}
-- Email: ${PORTFOLIO_CONFIG.owner.email}
+- Portfolio: ${PORTFOLIO_CONFIG.owner.socials.portfolio}
+- GitHub:    ${PORTFOLIO_CONFIG.owner.socials.github}
+- LinkedIn:  ${PORTFOLIO_CONFIG.owner.socials.linkedin}
+- Email:     ${PORTFOLIO_CONFIG.owner.email}
+- Phone:     ${PORTFOLIO_CONFIG.owner.phone}
 
-Open the Projects or Public Chat windows on the desktop to interact in real-time!
+========================================
+Open the Projects Explorer or Resume window on the desktop for the complete interactive experience!
 `;
 	};
 
